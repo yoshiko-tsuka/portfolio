@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Yoshiko Tsuka Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Webフォント -->
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/vendor/animate.css">
+    <link rel="stylesheet" href="css/vendor/magnific-popup.css">
+    <link rel="stylesheet" href="css/main.css">
+    <noscript>
+      <!-- JavaScriptが無効化されている場合の追加スタイルシート -->
+      <link rel="stylesheet" href="css/noscript.css">
+    </noscript>
+  </head>
+  <body data-spy="scroll" data-target="#navbar">
+    <section class="top">
+      <!-- ナビゲーションバー -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <!-- 画面幅が狭い時に表示されるハンバーガーメニュー -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">ナビゲーションの表示切り替え</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <!-- ホームリンク -->
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+          </div><!--/.navbar-header -->
+
+          <!-- メニュー -->
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#top">TOP</a></li>
+              <li><a href="#profile">PROFILE</a></li>
+              <li><a href="#works">WORKS</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- 背景 -->
+      <div id="top" class="top__bg">
+        <img class="top__beach" src="img/beach.JPG" alt="beach">
+      </div>
+
+      <div class="top__text-box">
+        <h1 class="top__title">yoshiko tsuka</h1>
+        <div class="top__catchphrase"><a href="https://github.com/yoshiko-tsuka" target="new" style="color:#ffffff;">https://github.com/yoshiko-tsuka</a></div>
+      </div>
+    </section>
+    
+    <!-- プロフィール -->
+    <section id="profile" class="profile">
+      <div class="profile__phrase animated">Webのお仕事</div>
+      <h2 class="profile__title animated">Web site jobs</h2>
+      <div class="container">
+        <div class="row">
+          <div class="card animated">
+            <div class="card__icon">
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </div>
+            <div class="card__description">
+              <br>Webのお仕事は誰かと誰か、誰かと何か、なにかと何かを「つなぐ」お仕事。</br>
+              <br>たくさんのことを学びながら、いろいろな人と素敵な「つなぐ」を作っていきたい。</br>
+              <br>つなぎ方は無限。</br>
+              <br>終わりがないから楽しい！</br>
+              <br>楽しいが終わらない！</br>
+            </div>
+          </div><!--/.card -->
+        </div><!--/.row -->
+      </div><!--/.container -->
+    </section><!--/.profile -->
+    <section id="works" class="works">
+      <div class="works__phrase animated">作品</div>
+      <h2 class="works__title animated">Works</h2>
+      <div class="image-works animated">
+        <div class="showcase showcase--leftpic container-fluid tabs animated">
+        <div class="row">
+          <!-- サムネイル -->
+          <div class="pull-right col-xs-12 col-sm-6">
+            <ul class="showcase__thumbnails tabs__menu">
+              <li><a href="#works-1"><img class="img-rounded" src="img/thumbnail/amida.jpg" width="60" height="60" alt="あみだくじ"></a></li>
+              <li><a href="#works-2"><img class="img-rounded" src="img/thumbnail/dreams.jpg" width="60" height="60" alt="DREAMS"></a></li>
+            </ul><!--/.showcase__thumbnails -->
+          </div><!--/.pull-right -->
+          
+          <!-- 拡大写真 -->
+          <div class="tabs__content col-xs-12 col-sm-6">
+            <section class="works-1">
+              <img class="img-rounded img-responsive" src="img/amida.jpg" width="500" height="500" alt="あみだくじ">
+            </section>
+            <section class="works-2">
+              <img class="img-rounded img-responsive" src="img/dreams.jpg" width="500" height="500" alt="DREAMS">
+            </section>
+          </div><!--/.tabs__content -->
+
+          <!-- 説明文 -->
+          <div class="tabs__content col-xs-12 col-sm-6">
+            <section id="works-1">
+              <div class="showcase__details">
+                <h3 class="showcase__kind-name">あみだくじ</h3>
+                <p class="showcase__kind-description">
+                あみだくじができます
+                <a href="http://ajisaiusagi.sakura.ne.jp/" target="new">http://ajisaiusagi.sakura.ne.jp/</a>
+                </p>
+              </div>
+            </section>
+            <section id="works-2">
+              <div class="showcase__details">
+                <h3 class="showcase__kind-name">DREAMS</h3>
+                <p class="showcase__kind-description">
+                小説投稿サイトです
+                <br>
+                <a href="https://heroku-dreams-for-20180407.herokuapp.com/" target="new">
+                  https://heroku-dreams-for-20180407.herokuapp.com/</a>
+                </br>
+                </p>
+              </div>
+            </section>
+          </div><!--/.tabs__content -->
+      </div><!--/.image-works -->
+    </section><!--/.works -->
+
+    <!-- フッター -->
+    <footer>
+      &copy; 2018 Yoshiko Tsuka
+    </footer>
+
+    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/vendor/jquery.waypoints.min.js"></script>
+    <script src="js/vendor/jquery.magnific-popup.min.js"></script>
+    <script src="js/vendor/mobile-detect.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
