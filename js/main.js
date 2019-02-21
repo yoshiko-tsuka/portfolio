@@ -47,15 +47,15 @@ function showParallax() {
   var offsetX_small = Math.round(scrollTop / parallaxXSpeed_small);
   var offsetY_small = Math.round(scrollTop / parallaxYSpeed_small);
 
-  $(".works").css({
-    "background-position":
+ // $(".works").css({
+   // "background-position":
       // 一番上
-      -offsetX + "px " + -offsetY + "px, " +
+     // -offsetX + "px " + -offsetY + "px, " +
       // 上から2番目
-      offsetX_small + "px " + -offsetY_small + "px, " +
+    //  offsetX_small + "px " + -offsetY_small + "px, " +
       // 一番下
-      "0% 0%",
-  });
+      //"0% 0%",
+  //});
 
 }
 
@@ -72,12 +72,34 @@ function initParallax() {
 }
 
 
+function initParticles(){
+  var w = $(window).width();
+  if(w > 500){
+  particles = Particles.init({
+  selector: '.header_background',
+  sizeVariations: 5,
+  color: ['#aaaaaa', '#48F2E3'],
+  connectParticles: true
+  });
+  }else{
+  particles = Particles.init({
+  selector: '.header_background',
+  sizeVariations: 5,
+  maxParticles:30,
+  color: ['#aaaaaa', '#48F2E3'],
+  connectParticles: true
+  });
+    
+  }
+}
+
 /**
  * ウインドウリサイズ時に実行する処理
  */
 $(window).resize(function() {
   // ウインドウがリサイズされるとここが実行される
   initParallax();
+  
 });
 
 
@@ -85,9 +107,85 @@ $(window).resize(function() {
  * ページロード時に実行する処理
  */
 $(document).ready(function() {
-  // 初期状態として1番目のタブを表示
-  showTab("works-1");
+  
+  var show1 = $('.top').remove();
+  var show2 = $('.profile').remove();
+  var show3 = $('.works').remove();
+  var show4 = $('footer').remove();
+  // For jQuery
+  
+  var myWave = $('#myID').wavify({
+    height: 300,
+    bones: 6,
+    amplitude: 100,
+    color: 'rgba(150, 97, 255, .1)',
+    speed: 0.2
+  });
+  myWave.updateColor({
+  color: 'rgba(46, 139, 87, 0.1)',
+  timing: 5
+});
 
+  
+  $('#slide_right').animate({
+    'left': '0px',
+    'top': '0px',
+    'opacity':'1'
+  },{
+    'duration': 200,
+    'easing': 'swing',
+    'complete' :function(){
+      
+      $('#slide_right').delay(500).animate({
+      'opacity':'0'
+    },{
+      'duration': 1000,
+      'easing': 'swing',
+      'complete' :function(){
+        $('#slide_left').delay(500).animate({
+            'right': '0px',
+            'top': '0px',
+            'opacity':'1'
+          },{
+            'duration': 200,
+            'easing': 'swing',
+            'complete':function(){
+              $('#slide_left').delay(500).animate({
+                  'opacity':'0'
+                },{
+                  'duration': 1000,
+                  'easing': 'swing',
+                  'complete' :function(){
+                    $('#slide_down').delay(500).animate({
+                        'top': '0px',
+                        'opacity':'1'
+                      },{
+                        'duration': 200,
+                        'easing': 'swing',
+                        'complete':function(){
+                          $('#slide_down').delay(500).animate({
+                              'opacity':'0'
+                            },{
+                              'duration': 1000,
+                              'easing': 'swing',
+                              'complete':function(){
+                                $('.start_animation').animate({
+                                  'opacity':'0'
+                                },{
+                                  'duration':200
+                                });
+                                $('.start_animation').delay(200).remove();
+                                $('.notremove').before(show1);
+                                $('.top').animate({
+                                  'opacity':'1'
+                                },{
+                                  'duration':2000
+                                });
+                                $('.notremove').before(show2);
+                                $('.notremove').before(show3);
+                                $('.notremove').before(show4);
+                                // 初期状態として1番目のタブを表示
+  showTab("works-1");
   // タブがクリックされたらコンテンツを表示
   $(".tabs__menu a").click(function() {
     var tabName = $(this).attr("href");
@@ -148,4 +246,23 @@ $(document).ready(function() {
   });
 
   initParallax();
+  
+  initParticles();
+  
+
+                              }
+                          });
+                        }
+                    });
+                  }
+              });
+            }
+        });
+      }
+    });
+    }
+  });
+
+
+  
 });

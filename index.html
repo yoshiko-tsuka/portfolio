@@ -13,12 +13,29 @@
     <link rel="stylesheet" href="css/vendor/animate.css">
     <link rel="stylesheet" href="css/vendor/magnific-popup.css">
     <link rel="stylesheet" href="css/main.css">
+    
     <noscript>
       <!-- JavaScriptが無効化されている場合の追加スタイルシート -->
       <link rel="stylesheet" href="css/noscript.css">
     </noscript>
+    
   </head>
   <body data-spy="scroll" data-target="#navbar">
+    
+    <section class="start_animation">
+      <div class="start1">
+        <img id="slide_right" src="img/start_image1.png" alt="php_ruby">
+      </div>
+      <div class="start2">
+        <img id="slide_left" src="img/start_image2.png" alt="php_ruby">
+      </div>
+      <div class="start3">
+        <img id="slide_down" src="img/start_image3.png" alt="php_ruby">
+      </div>
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs></defs><path id="myID" d=""/></svg>
+    </section>
+    
+    
     <!-- トップ -->
     <section class="top">
       <!-- ナビゲーションバー -->
@@ -50,31 +67,32 @@
 
       <!-- 背景 -->
       <div id="top" class="top__bg">
-        <img class="top__beach" src="img/beach.JPG" alt="beach">
+        <img class="top__beach" src="img/top_image2.jpg" alt="space">
+        
+        
       </div>
 
       <div class="top__text-box">
         <h1 class="top__title">yoshiko tsuka</h1>
         <div class="top__catchphrase"><a href="https://github.com/yoshiko-tsuka" target="new" style="color:#ffffff;">https://github.com/yoshiko-tsuka</a></div>
       </div>
+      <canvas class="header_background"></canvas>
     </section><!--/.top -->
     
     <!-- プロフィール -->
     <section id="profile" class="profile">
-      <div class="profile__phrase animated">Webのお仕事</div>
-      <h2 class="profile__title animated">Web site jobs</h2>
+      <!--<div class="profile__phrase animated">Webのお仕事</div>-->
+      <h2 class="profile__title animated">Web Engineer</h2>
       <div class="container">
         <div class="row">
           <div class="card animated">
             <div class="card__icon">
-              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color:#bc57f2"></span>
             </div>
             <div class="card__description">
-              <br>Webのお仕事は誰かと誰か、誰かと何か、なにかと何かを「つなぐ」お仕事。</br>
-              <br>たくさんのことを学びながら、いろいろな人と素敵な「つなぐ」を作っていきたい。</br>
-              <br>つなぎ方は無限。</br>
-              <br>終わりがないから楽しい！</br>
-              <br>楽しいが終わらない！</br>
+              <br><span style="color:#bc57f2">Name:</span> Yoshiko Tsuka (maiden name)</br>
+              <br><span style="color:#bc57f2">Coding:</span>  Ruby on rails, PHP, JavaScript, MySQL, C++</br>
+              <br><span style="color:#bc57f2">Language:</span>  Japanese(Native), English(Pre-advanced:TOEIC test 865)</br>
             </div>
           </div><!--/.card -->
         </div><!--/.row -->
@@ -83,7 +101,7 @@
     
     <!-- 作品 -->
     <section id="works" class="works">
-      <div class="works__phrase animated">作品</div>
+      <!--<div class="works__phrase animated">作品</div>-->
       <h2 class="works__title animated">Works</h2>
       <div class="image-works animated">
         <div class="showcase showcase--leftpic container-fluid tabs animated">
@@ -91,8 +109,9 @@
           <!-- サムネイル -->
           <div class="pull-right col-xs-12 col-sm-6">
             <ul class="showcase__thumbnails tabs__menu">
-              <li><a href="#works-1"><img class="img-rounded" src="img/thumbnail/amida.jpg" width="60" height="60" alt="あみだくじ"></a></li>
+              <li><a href="#works-1"><img class="img-rounded" src="img/thumbnail/amida.jpg" width="60" height="60" alt="Ghost leg"></a></li>
               <li><a href="#works-2"><img class="img-rounded" src="img/thumbnail/dreams.jpg" width="60" height="60" alt="DREAMS"></a></li>
+              <li><a href="#works-3"><img class="img-rounded" src="img/thumbnail/dreams.jpg" width="60" height="60" alt="DREAMS"></a></li>
             </ul><!--/.showcase__thumbnails -->
           </div><!--/.pull-right -->
           
@@ -104,15 +123,18 @@
             <section class="works-2">
               <img class="img-rounded img-responsive" src="img/dreams.jpg" width="500" height="500" alt="DREAMS">
             </section>
+            <section class="works-3">
+              <img class="img-rounded img-responsive" src="img/dreams.jpg" width="500" height="500" alt="DREAMS">
+            </section>
           </div><!--/.tabs__content -->
 
           <!-- 説明文 -->
           <div class="tabs__content col-xs-12 col-sm-6">
             <section id="works-1">
               <div class="showcase__details">
-                <h3 class="showcase__kind-name">あみだくじ</h3>
+                <h3 class="showcase__kind-name">ladder lottery</h3>
                 <p class="showcase__kind-description">
-                あみだくじができます
+                You can play ladder lottery!
                 <a href="http://ajisaiusagi.sakura.ne.jp/" target="new">http://ajisaiusagi.sakura.ne.jp/</a>
                 </p>
               </div>
@@ -121,10 +143,29 @@
               <div class="showcase__details">
                 <h3 class="showcase__kind-name">DREAMS</h3>
                 <p class="showcase__kind-description">
-                小説投稿サイトです
+                It's a novel posing website!
                 <br>
                 <a href="https://heroku-dreams-for-20180407.herokuapp.com/" target="new">
                   https://heroku-dreams-for-20180407.herokuapp.com/</a>
+                </br>
+                </p>
+              </div>
+            </section>
+            <section id="works-3">
+              <div class="showcase__details">
+                <h3 class="showcase__kind-name">PHP & Wordpress & Wix</h3>
+                <p class="showcase__kind-description">
+                Some of my works
+                <br>
+                <a href="http://feriest.com" target="new">
+                  http://feriest.com</a></br>
+                
+                <a href="http://www.sato-lechat.com/" target="new">
+                  http://www.sato-lechat.com/</a></br>
+                
+                <a href="https://www.collina-furano.com/" target="new"> https://www.collina-furano.com/</a></br>
+                
+                <a href="http://sugawara-farm.com/" target="new">http://sugawara-farm.com/</a>
                 </br>
                 </p>
               </div>
@@ -135,14 +176,19 @@
 
     <!-- フッター -->
     <footer>
-      &copy; 2018 Yoshiko Tsuka
+      &copy; 2019 Yoshiko Tsuka
     </footer>
-
+    <div class="notremove"></div>
+    
+    <script src="js/TweenMax.min.js"></script>
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/vendor/jquery.waypoints.min.js"></script>
     <script src="js/vendor/jquery.magnific-popup.min.js"></script>
     <script src="js/vendor/mobile-detect.min.js"></script>
+    <script src="js/wavify.js"></script>
+    <script src="js/jquery.wavify.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/particles.min.js"></script>
   </body>
 </html>

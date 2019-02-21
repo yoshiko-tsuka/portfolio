@@ -6,16 +6,63 @@ html {
 }
 
 body {
-  color: #000;
-  background-color: #fff;
+  color: #aaaaaa;
+  background-color: #21292C;
   font-family: 'Droid Serif', YuGothic, '游ゴシック', sans-serif;
 }
-
+.top {
+  opacity: 0;
+}
 .animated {
   /* アニメーションで表示させるため最初は非表示 */
   opacity: 0;
 }
+.navbar-default {
+    background-color: transparent; 
+    border-color: transparent;
+}
 
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    color: #555;
+    background-color: rgb(168,168,168,0.3);
+}
+svg{
+  height:100vh;
+  width:100vw;
+}
+.start_animation{
+  background-color: #21292C;
+  
+}
+
+.start_animation div{
+  position:relative;
+}
+
+.start_animation div img{
+  height: 120vh;
+  position:absolute;
+  opacity:0;
+}
+
+#slide_right{
+  left: -100px;
+  top: -100px;
+}
+#slide_left{
+  right: -100px;
+  top: -100px;
+  margin:0 0 0 auto;
+}
+.start3{
+  
+}
+#slide_down{
+  height: 100vh;
+  width:100%;
+  margin:0 10% 0 10%;
+  top: -100px;
+}
 .navbar {
   font-family: 'Slabo 27px', YuGothic, '游ゴシック', sans-serif;
 }
@@ -161,6 +208,18 @@ body {
 
 }
 
+.header_background {
+  position:absolute;
+  
+  display: block;
+  
+  top: 0;
+  
+  left: 0;
+  
+  z-index: 0;
+}
+
 .top__text-box {
   /* 上下中央に置く */
   position: relative;
@@ -172,6 +231,7 @@ body {
   width: 100%;
 
   font-weight: 100;
+  z-index: 20;
 }
 
 .profile__phrase,
@@ -193,33 +253,41 @@ body {
 .profile {
   padding-top: 82px;
   padding-bottom: 44px;
-  background-color: #D1EDFB;
+  background: linear-gradient(
+    to bottom,
+    #000000 20%,
+    #21292C
+  );
 }
 
-.works {
+#works {
   padding-top: 82px;
   padding-bottom: 92px;
-  background-color: #FAF7F0;
-  background-image: -webkit-linear-gradient(
+  background: linear-gradient(
+    to bottom,
+    #21292C 65%,
+    #433357 95%
+  );
+  /*background-image: -webkit-linear-gradient(
     top left,
-    #efff9d,
-    #efff9d 50%,
-    #2aa9d2 50%,
-    #2aa9d2
+    #21292C,
+    #21292C 20%,
+    #CEB041 20% 40%,
+    
   );
   background-image: linear-gradient(
-    to bottom right,
-    #efff9d,
-    #efff9d 50%,
-    #2aa9d2 50%,
-    #2aa9d2
-  );
+    to bottom,
+    #21292C,
+    #21292C 80%,
+    #CEB041
+  );*/
 }
 
 footer {
   padding: 50px 0;
-  background-color: #fafaf3;
+  background-color: #433357;
   text-align: center;
+  color:#aaaaaa;
 }
 
 
