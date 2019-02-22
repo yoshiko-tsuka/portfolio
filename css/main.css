@@ -7,10 +7,11 @@ html {
 
 body {
   color: #aaaaaa;
-  background-color: #21292C;
+  background-color: #000000;
   font-family: 'Droid Serif', YuGothic, '游ゴシック', sans-serif;
 }
 .top {
+  background-color: #000000;
   opacity: 0;
 }
 .animated {
@@ -24,7 +25,8 @@ body {
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
     color: #555;
-    background-color: rgb(168,168,168,0.3);
+    background-color:#dbbbf9;
+    opacity:0.3;
 }
 svg{
   height:100vh;
@@ -46,17 +48,19 @@ svg{
 }
 
 #slide_right{
+  height: 100vh;
+  width:100%;
   left: -100px;
   top: -100px;
 }
 #slide_left{
+  height: 100vh;
+  width:100%;
   right: -100px;
   top: -100px;
   margin:0 0 0 auto;
 }
-.start3{
-  
-}
+
 #slide_down{
   height: 100vh;
   width:100%;
@@ -165,13 +169,22 @@ svg{
 .top {
   /* 子要素でposition:absoluteを使うため必要 */
   position: relative;
+  background-color: #000000;
 }
 
-.top, .top__bg .top__beach{
+.top, .top__bg{
   /* 画面いっぱいに広げる */
   width: 100vw;
   height: 100vh;
+  text-align: center;
   overflow: hidden;
+}
+
+.top__bg img{
+  width: 100%;
+  height: 100vh;
+  object-fit: contain;;
+  object-position:50% 50%;
 }
 
 .top__title {
@@ -192,12 +205,6 @@ svg{
   position: absolute;
   left: 0;
   top: 0;
-
-  /* 背景画像を画面いっぱいに置く */
-  background-color: #fff;
-  background-image: none;
-  background-size: cover;
-  background-position: center;
 }
 
 .top__beach {
