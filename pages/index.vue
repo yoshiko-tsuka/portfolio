@@ -33,7 +33,7 @@
                   align="center"
                   justify="center"
                 >
-                  <div>aaa</div>
+                  <v-card><v-icon color="green darken-2">fab fa-twitter</v-icon><v-icon color="green darken-2">mdi-domain</v-icon></v-card>
                 </v-row>
               </v-sheet>
             </v-carousel-item>

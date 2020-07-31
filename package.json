@@ -12,6 +12,7 @@
     "nuxt": "^2.14.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@nuxtjs/vuetify": "^1.11.2"
   }
 }
