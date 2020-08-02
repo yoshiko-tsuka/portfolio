@@ -60,29 +60,82 @@
                     dark
                     >
                       <v-system-bar dark>
-                        <v-spacer></v-spacer>
-                        <v-icon>mdi-wifi-strength-4</v-icon>
-                        <v-icon>mdi-signal-cellular-outline</v-icon>
-                        <v-icon>mdi-battery</v-icon>
-                        <span>12:30</span>
+                        <v-container>
+                        <v-row justify="space-between">
+                          <v-col style="padding:0">
+                            <v-icon>mdi-signal-cellular-outline</v-icon>
+                            <v-icon>mdi-wifi-strength-3</v-icon>
+                          </v-col>
+                          <v-col style="padding:0; text-align:center;">
+                            <span>{{ hours }}:{{ minutes }}</span>
+                          </v-col>
+                          <v-col style="padding:0; text-align:right;">
+                            <span>98%</span>
+                            <v-icon>mdi-battery</v-icon>
+                          </v-col>
+                        </v-row>
+                        </v-container>
                       </v-system-bar>
                       <v-carousel
                         cycle
+                        :show-arrows="false"
                         height="350px"
                         hide-delimiter-background
+                        style="background-image: url('wallpaper.png');"
                       >
                         <v-carousel-item
                         >
                           <v-sheet
                             height="100%"
-                            style="background:transparent"
+                            color="transparent"
                           >
                             <v-row
-                              class="fill-height"
-                              align="center"
+                              align="top"
                               justify="center"
+                              style="margin:10px 5px 10px 5px"
                             >
-                              <v-card><v-icon color="green darken-2">fab fa-twitter</v-icon><v-icon color="green darken-2">mdi-domain</v-icon></v-card>
+                              <v-col style="text-align:center; padding:0px 0px 0px 0px">
+                                <a href="https://twitter.com/S2hydrangeS2" target="_blank" style="text-decoration-line:none"><v-btn depressed small color="light-blue accent-2" style="border-radius: 12px; height:50px; padding:5px 2px 5px 2px;">
+                                  <v-icon large color="white">fab fa-twitter</v-icon>
+                                </v-btn></a>
+                                <p style="font-size:12px">Twitter</p>
+                              </v-col>
+                              <v-col  style="text-align:center; padding:0px 0px 0px 0px">
+                                <a href="https://github.com/yoshiko-tsuka" target="_blank" style="text-decoration-line:none"><v-btn depressed small color="white" style="border-radius: 12px; height:50px; padding:5px 2px 5px 2px;">
+                                  <v-icon large color="black">fab fa-github</v-icon>
+                                </v-btn></a>
+                                <p style="font-size:12px">Github</p>
+                              </v-col>
+                              <v-col  style="text-align:center; padding:0px 0px 0px 0px">
+                                <a href="https://www.linkedin.com/in/yoshiko-sumita-804419182/" target="_blank" style="text-decoration-line:none"><v-btn depressed small color="#0374B1" style="border-radius: 12px; height:50px; padding:5px 2px 5px 2px;">
+                                  <v-icon large color="white">fab fa-linkedin-in</v-icon>
+                                </v-btn></a>
+                                <p style="font-size:12px">Linkedin</p>
+                              </v-col>
+                            </v-row>
+                            <v-row
+                              align="top"
+                              justify="center"
+                              style="margin:10px 5px 10px 5px"
+                            >
+                              <v-col style="text-align:center; padding:0px 0px 0px 0px">
+                                <v-btn depressed small color="white" style="border-radius: 12px; height:50px; padding:5px 2px 5px 2px;">
+                                  <span style="color:red;font-size:10px;margin:0">
+                                    {{week}}
+                                    
+                                  </span>
+                                  <span style="color:black;margin:0">{{day}}</span>
+                                </v-btn>
+                                <p style="font-size:12px">Calender</p>
+                              </v-col>
+                              <v-col  style="text-align:center; padding:0px 0px 0px 0px">
+                                <v-btn depressed small color="white" style="border-radius: 12px; height:50px; padding:5px 2px 5px 2px;">
+                                  <span style="color:black;margin:0">{{ hours }}:{{ minutes }}</span>
+                                </v-btn>
+                                <p style="font-size:12px">Clock</p>
+                              </v-col>
+                              <v-col  style="text-align:center; padding:0px 0px 0px 0px">
+                              </v-col>
                             </v-row>
                           </v-sheet>
                         </v-carousel-item>
@@ -90,13 +143,14 @@
                         >
                           <v-sheet
                             height="100%"
+                            color="transparent"
                           >
                             <v-row
                               class="fill-height"
                               align="center"
                               justify="center"
                             >
-                              <div>cc</div>
+                              <div>Coming Soon!!</div>
                             </v-row>
                           </v-sheet>
                         </v-carousel-item>
@@ -104,13 +158,14 @@
                         >
                           <v-sheet
                             height="100%"
+                            color="transparent"
                           >
                             <v-row
                               class="fill-height"
                               align="center"
                               justify="center"
                             >
-                              <div>bb</div>
+                              <div>Coming Soon!!</div>
                             </v-row>
                           </v-sheet>
                         </v-carousel-item>
@@ -137,7 +192,43 @@
 </template>
 
 <script>
-
+export default {
+  head() {
+    return {
+      title: 'Tsuka Yoshiko',
+      description: 'portfolio site'
+    }
+  },
+  data() {
+    return {
+      date: new Date(),
+    }
+  },
+  computed: {
+    week() {
+      const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+      return weekdays[this.date.getDay()]
+    },
+    day() {
+      return this.date.getDate()
+    },
+    hours() {
+      return this.date.getHours()
+    },
+    minutes() {
+      return (this.date.getMinutes()<10?'0':'') + this.date.getMinutes()
+    }
+  },
+  mounted() {
+    this.setDate()
+    setInterval(() => this.setDate(), 1000)
+  },
+  methods: {
+    setDate() {
+      this.date = new Date()
+    }
+  }
+}
 </script>
 
 <style>
@@ -155,5 +246,7 @@
 #name_behind{
   animation: moveImage 8s infinite;
 }
-
+.v-btn {
+  text-transform: none;
+}
 </style>
