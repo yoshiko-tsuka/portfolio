@@ -26,7 +26,7 @@
                     <text class="main_name" x="0" y="100">TSUKA</text>
                     <text class="main_name" x="0" y="150">YOSHIKO</text>
                   </clipPath>
-                  <image id="name_behind" xlink:href="background.png" height="250" width="250" clip-path="url(#cpath1)" />
+                  <image id="name_behind" xlink:href="background.png" height="250" width="250" x="0" :y="image_y" clip-path="url(#cpath1)" />
                 </svg>
               </v-col>
               <v-col xs12 sm1>
@@ -202,11 +202,12 @@ export default {
   data() {
     return {
       date: new Date(),
+      image_y: 0,
     }
   },
   computed: {
     week() {
-      const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
       return weekdays[this.date.getDay()]
     },
     day() {
@@ -232,10 +233,12 @@ export default {
 </script>
 
 <style>
-@keyframes moveImage {0%   { transform:  translate(-300px, 0px);  y:-50px; } 
-  10%   { transform:  translate(0px, 0px);   y:-50px; } 
-  90%   { transform:  translate(0px, 0px);   y:10px; } 
-  100%  { transform:  translate(300px, 0px); y:-50px;  }  }
+@keyframes moveImage1 {0% { transform:  translate(-300px, 0px);} 
+  10% { transform:  translate(0px, 0px);} 
+  90% { transform:  translate(0px, 0px);} 
+  100% { transform:  translate(300px, 0px);}}
+@keyframes moveImage2 {0% { y:-50px;} 
+  100% { y:10px;}}
 .v-progress-circular__underlay {
   stroke: rgba(255, 255, 255, 0.1);
 }
@@ -244,7 +247,10 @@ export default {
   width:20px;
 }
 #name_behind{
-  animation: moveImage 8s infinite;
+  animation: moveImage2 8s infinite;
+}
+#cpath1{
+  animation: moveImage1 8s infinite;
 }
 .v-btn {
   text-transform: none;
