@@ -203,6 +203,7 @@ export default {
     return {
       date: new Date(),
       image_y: 0,
+      down_image: true
     }
   },
   computed: {
@@ -223,10 +224,24 @@ export default {
   mounted() {
     this.setDate()
     setInterval(() => this.setDate(), 1000)
+    setInterval(() => this.setImageY(), 100)
   },
   methods: {
     setDate() {
       this.date = new Date()
+    },
+    setImageY() {
+      if (this.down_image === true && this.image_y === 10) {
+        this.down_image = false
+      } else if (this.down_image === false && this.image_y === -50) {
+        this.down_image = true
+      }
+
+      if(this.down_image){
+        this.image_y++
+      }else{
+        this.image_y--
+      }
     }
   }
 }
@@ -237,17 +252,12 @@ export default {
   10% { transform:  translate(0px, 0px);} 
   90% { transform:  translate(0px, 0px);} 
   100% { transform:  translate(300px, 0px);}}
-@keyframes moveImage2 {0% { y:-50px;} 
-  100% { y:10px;}}
 .v-progress-circular__underlay {
   stroke: rgba(255, 255, 255, 0.1);
 }
 .v-btn--icon.v-size--small {
   height:20px;
   width:20px;
-}
-#name_behind{
-  animation: moveImage2 8s infinite;
 }
 #cpath1{
   animation: moveImage1 8s infinite;
