@@ -17,17 +17,7 @@
               <v-col xs12 sm1>
               </v-col>
               <v-col xs12 sm10>
-                <svg xmlns="http://www.w3.org/2000/svg" height="250" width="250" viewBox="0 0 250 250"> 
-                  <clipPath id="cpath1">
-                    <style>
-                      .main_name { font: 50px sans-serif; }
-                    </style>
-                    
-                    <text class="main_name" x="0" y="100">TSUKA</text>
-                    <text class="main_name" x="0" y="150">YOSHIKO</text>
-                  </clipPath>
-                  <image id="name_behind" xlink:href="background.png" height="250" width="250" x="0" :y="image_y" clip-path="url(#cpath1)" />
-                </svg>
+                <MoveText/>
               </v-col>
               <v-col xs12 sm1>
               </v-col>
@@ -206,6 +196,8 @@
 </template>
 
 <script>
+import MoveText from '~/components/move_text'
+
 export default {
   head() {
     return {
@@ -213,11 +205,12 @@ export default {
       description: 'portfolio site'
     }
   },
+  components: {
+    MoveText
+  },
   data() {
     return {
-      date: new Date(),
-      image_y: 0,
-      down_image: true
+      date: new Date()
     }
   },
   computed: {
@@ -238,43 +231,22 @@ export default {
   mounted() {
     this.setDate()
     setInterval(() => this.setDate(), 1000)
-    setInterval(() => this.setImageY(), 100)
   },
   methods: {
     setDate() {
       this.date = new Date()
-    },
-    setImageY() {
-      if (this.down_image === true && this.image_y === 10) {
-        this.down_image = false
-      } else if (this.down_image === false && this.image_y === -50) {
-        this.down_image = true
-      }
-
-      if(this.down_image){
-        this.image_y++
-      }else{
-        this.image_y--
-      }
     }
   }
 }
 </script>
 
 <style>
-@keyframes moveImage1 {0% { transform:  translate(-300px, 0px);} 
-  10% { transform:  translate(0px, 0px);} 
-  90% { transform:  translate(0px, 0px);} 
-  100% { transform:  translate(300px, 0px);}}
 .v-progress-circular__underlay {
   stroke: rgba(255, 255, 255, 0.1);
 }
 .v-btn--icon.v-size--small {
   height:20px;
   width:20px;
-}
-#cpath1{
-  animation: moveImage1 8s infinite;
 }
 .v-btn {
   text-transform: none;

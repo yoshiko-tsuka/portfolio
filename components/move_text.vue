@@ -1,79 +1,52 @@
 <template>
-  <div class="VueToNuxtLogo">
-    <div class="Triangle Triangle--two" />
-    <div class="Triangle Triangle--one" />
-    <div class="Triangle Triangle--three" />
-    <div class="Triangle Triangle--four" />
-  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" height="250" width="250" viewBox="0 0 250 250"> 
+    <clipPath id="cpath1">
+      <style>
+        .main_name { font: 50px sans-serif; }
+      </style>
+      
+      <text class="main_name" x="0" y="100">TSUKA</text>
+      <text class="main_name" x="0" y="150">YOSHIKO</text>
+    </clipPath>
+    <image id="name_behind" xlink:href="background.png" height="250" width="250" x="0" :y="image_y" clip-path="url(#cpath1)" />
+  </svg>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      image_y: 0,
+      down_image: true
+    }
+  },
+  mounted() {
+    setInterval(() => this.setImageY(), 100)
+  },
+  methods: {
+    setImageY() {
+      if (this.down_image === true && this.image_y === 10) {
+        this.down_image = false
+      } else if (this.down_image === false && this.image_y === -50) {
+        this.down_image = true
+      }
+
+      if(this.down_image){
+        this.image_y++
+      }else{
+        this.image_y--
+      }
+    }
+  }
+}
+</script>
+
 <style>
-.VueToNuxtLogo {
-  display: inline-block;
-  animation: turn 2s linear forwards 1s;
-  transform: rotateX(180deg);
-  position: relative;
-  overflow: hidden;
-  height: 180px;
-  width: 245px;
-}
-
-.Triangle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-}
-
-.Triangle--one {
-  border-left: 105px solid transparent;
-  border-right: 105px solid transparent;
-  border-bottom: 180px solid #41b883;
-}
-
-.Triangle--two {
-  top: 30px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 87.5px solid transparent;
-  border-right: 87.5px solid transparent;
-  border-bottom: 150px solid #3b8070;
-}
-
-.Triangle--three {
-  top: 60px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-bottom: 120px solid #35495e;
-}
-
-.Triangle--four {
-  top: 120px;
-  left: 70px;
-  animation: godown 0.5s linear forwards 3s;
-  border-left: 35px solid transparent;
-  border-right: 35px solid transparent;
-  border-bottom: 60px solid #fff;
-}
-
-@keyframes turn {
-  100% {
-    transform: rotateX(0deg);
-  }
-}
-
-@keyframes godown {
-  100% {
-    top: 180px;
-  }
-}
-
-@keyframes goright {
-  100% {
-    left: 70px;
-  }
+@keyframes moveImage1 {0% { transform:  translate(-300px, 0px);} 
+  10% { transform:  translate(0px, 0px);} 
+  90% { transform:  translate(0px, 0px);} 
+  100% { transform:  translate(300px, 0px);}}
+#cpath1{
+  animation: moveImage1 8s infinite;
 }
 </style>
