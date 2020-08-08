@@ -159,16 +159,6 @@
 
 <script>
 export default {
-  head() {
-    return {
-      title: 'Tsuka Yoshiko',
-      description: 'portfolio site'
-    }
-  },
-  components: {
-    MoveText,
-    Smartphone
-  },
   data() {
     return {
       date: new Date()

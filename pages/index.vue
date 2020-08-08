@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import MoveText from '~/components/move_text'
-import Smartphone from '~/components/smartphone'
+import MoveText from '@/components/move_text';
+import Smartphone from '@/components/smartphone';
 
 export default {
   head() {
@@ -53,11 +53,7 @@ export default {
   },
   components: {
     MoveText,
-    Smartphone
-  },
-  data() {
-    return {
-    }
+    Smartphone 
   }
 }
 </script>
