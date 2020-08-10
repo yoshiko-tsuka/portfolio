@@ -50,97 +50,62 @@
             hide-delimiter-background
             class="smartphone-contents"
           >
-            <v-carousel-item
+            <template 
+              v-for="sheet in apps"
             >
-              <v-sheet
-                height="100%"
-                color="transparent"
+              <v-carousel-item
               >
-                <v-row
-                  align="top"
-                  justify="center"
-                  class="smartphone-contents-row"
+                <v-sheet
+                  height="100%"
+                  color="transparent"
                 >
-                  <v-col class="smartphone-contents-col">
-                    <a href="https://twitter.com/S2hydrangeS2" target="_blank" class="smartphone-btn">
-                      <v-btn depressed small color="light-blue accent-2">
-                        <v-icon large color="white">fab fa-twitter</v-icon>
-                      </v-btn>
-                    </a>
-                    <p class="smartphone-contents-text">Twitter</p>
-                  </v-col>
-                  <v-col class="smartphone-contents-col">
-                    <a href="https://github.com/yoshiko-tsuka" target="_blank" class="smartphone-btn">
-                      <v-btn depressed small color="white">
-                        <v-icon large color="black">fab fa-github</v-icon>
-                      </v-btn>
-                    </a>
-                    <p class="smartphone-contents-text">Github</p>
-                  </v-col>
-                  <v-col class="smartphone-contents-col">
-                    <a href="https://www.linkedin.com/in/yoshiko-sumita-804419182/" target="_blank" class="smartphone-btn">
-                      <v-btn depressed small color="#0374B1">
-                        <v-icon large color="white">fab fa-linkedin-in</v-icon>
-                      </v-btn>
-                    </a>
-                    <p class="smartphone-contents-text">Linkedin</p>
-                  </v-col>
-                </v-row>
-                <v-row
-                  align="top"
-                  justify="center"
-                  class="smartphone-contents-row"
-                >
-                  <v-col class="smartphone-contents-col">
-                    <v-btn depressed small color="white">
-                      <span style="color:red;font-size:10px;margin:0">
-                        {{week}}
-                      </span>
-                      <span style="color:black;margin:0">{{day}}</span>
-                    </v-btn>
-                    <p class="smartphone-contents-text">Calender</p>
-                  </v-col>
-                  <v-col class="smartphone-contents-col">
-                    <v-btn depressed small color="white">
-                      <span style="color:black;margin:0">{{ hours }}:{{ minutes }}</span>
-                    </v-btn>
-                    <p class="smartphone-contents-text">Clock</p>
-                  </v-col>
-                  <v-col class="smartphone-contents-col">
-                  </v-col>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-            <v-carousel-item
-            >
-              <v-sheet
-                height="100%"
-                color="transparent"
-              >
-                <v-row
-                  class="fill-height"
-                  align="center"
-                  justify="center"
-                >
-                  <div>Coming Soon!!</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-            <v-carousel-item
-            >
-              <v-sheet
-                height="100%"
-                color="transparent"
-              >
-                <v-row
-                  class="fill-height"
-                  align="center"
-                  justify="center"
-                >
-                  <div>Coming Soon!!</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
+                  <template v-if="sheet === '[]'">
+                    <v-row
+                      class="fill-height"
+                      align="center"
+                      justify="center"
+                    >
+                      <div>Coming Soon!!</div>
+                    </v-row>
+                  </template>
+                  <template v-else>
+                    <template 
+                      v-for="app in sheet"
+                    >
+                      <v-if="isFirstColumn(app.id)">
+                        <v-row
+                          align="top"
+                          justify="center"
+                          class="smartphone-contents-row"
+                        >
+                      </v-if>
+                      <template v-if="slot in app">
+                        <SpApps 
+                          :frame_color="app.frame_color"
+                          :app_name="app.app_name"
+                        >
+                          <template v-for="span in slot">
+                            <span :style="span.style">{{ span.data }}</span>
+                          </template>
+                        </SpApps>
+                      </template>
+                      <template v-else>
+                        <SpApps 
+                            :link="app.link"
+                            :frame_color="app.frame_color"
+                            :icon_color="app.icon_color"
+                            :icon="app.icon"
+                            :app_name="app.app_name"
+                        />
+                      </template>
+                      <template v-if="isLastColumn(app.id)">
+                        </v-row>
+                      </template>
+                    </template>
+                  </template>
+                </v-sheet>
+              </v-carousel-item>
+            </template>
           </v-carousel>
         </v-card>
         <v-divider></v-divider>
@@ -158,11 +123,82 @@
 </template>
 
 <script>
+import SpApps from '@/components/sp_apps';
+
 export default {
   data() {
     return {
-      date: new Date()
+      date: new Date(),
+      apps: [
+        { 
+          sheet1: [
+            { 
+              id: 1,
+              link: 'https://twitter.com/S2hydrangeS2',
+              frame_color: 'light-blue accent-2',
+              icon_color: 'white',
+              icon: 'fab fa-twitter',
+              app_name: 'Twitter'
+            },
+            { 
+              id: 2,
+              link: 'https://github.com/yoshiko-tsuka',
+              frame_color: 'white',
+              icon_color: 'black',
+              icon: 'fab fa-github',
+              app_name: 'Github'
+            },
+            { 
+              id: 3,
+              link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
+              frame_color: '#0374B1',
+              icon_color: 'white',
+              icon: 'fab fa-linkedin-in',
+              app_name: 'Linkedin'
+            },
+            /* {
+              id: 4,
+              frame_color: 'white',
+              slot: [
+                { 
+                  style: 'color:red;font-size:10px;margin:0',
+                  data: this.week()
+                },
+                {
+                  style: 'color:black;margin:0',
+                  data: this.day()
+                }
+              ],
+              app_name: 'Calender'
+            },
+            {
+              id: 5,
+              frame_color: 'white',
+              slot: [
+                {
+                  style: 'color:black;margin:0',
+                  data: this.hours() + ':' + this.minutes()
+                }
+              ],
+              app_name: 'Clock'
+            }　*/
+          ] 
+        },
+        {
+          sheet2: []
+        },
+        {
+          sheet3: []
+        }
+      ]
     }
+  },
+  components: {
+    SpApps
+  },
+  created() {
+    this.setDate()
+    setInterval(() => this.setDate(), 1000)
   },
   computed: {
     week() {
@@ -179,13 +215,23 @@ export default {
       return (this.date.getMinutes()<10?'0':'') + this.date.getMinutes()
     }
   },
-  mounted() {
-    this.setDate()
-    setInterval(() => this.setDate(), 1000)
-  },
   methods: {
     setDate() {
       this.date = new Date()
+    },
+    isFirstColumn(id) {
+      if (id % 3 === 1 ) {
+        return true
+      } else {
+        return false
+      }
+    },
+    ifLastColumn(id) {
+      if (id % 3 === 0) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
@@ -229,21 +275,6 @@ export default {
 }
 .smartphone-contents-row {
   margin:10px 5px 10px 5px;
-}
-.smartphone-contents-col {
-  text-align:center;
-  padding:0px 0px 0px 0px;
-}
-.smartphone-btn {
-  text-decoration-line:none;
-}
-.smartphone-contents-col button {
-  border-radius: 12px;
-  height:50px!important;
-  padding:5px 2px 5px 2px!important;
-}
-.smartphone-contents-text {
-  font-size:12px;
 }
 .smartphone-bottom {
   text-align:center;

@@ -1,79 +1,51 @@
 <template>
-  <div class="VueToNuxtLogo">
-    <div class="Triangle Triangle--two" />
-    <div class="Triangle Triangle--one" />
-    <div class="Triangle Triangle--three" />
-    <div class="Triangle Triangle--four" />
-  </div>
+  <v-col class="smartphone-contents-col">
+    <a :href="link" target="_blank" class="smartphone-btn">
+      <v-btn depressed small :color="frame_color">
+        <v-icon large :color="icon_color">{{ icon }}</v-icon>
+      </v-btn>
+    </a>
+    <p class="smartphone-contents-text">{{ app_name }}</p>
+  </v-col>
 </template>
 
+<script>
+export default {
+  props: {
+    link: String,
+    frame_color: String,
+    icon_color: String,
+    icon: String,
+    app_name: String
+  },
+  data () {
+    return {
+      message: 'お名前は？',
+      name: 'NoName'
+    }
+  },
+  methods: {
+    doAction () {
+      this.message = 'こんにちは！' + this.name + 'さん！'
+    }
+  }
+}
+</script>
+
 <style>
-.VueToNuxtLogo {
-  display: inline-block;
-  animation: turn 2s linear forwards 1s;
-  transform: rotateX(180deg);
-  position: relative;
-  overflow: hidden;
-  height: 180px;
-  width: 245px;
+.smartphone-contents-col {
+  text-align:center;
+  padding:0px 0px 0px 0px;
 }
-
-.Triangle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
+.smartphone-btn {
+  text-decoration-line:none;
 }
-
-.Triangle--one {
-  border-left: 105px solid transparent;
-  border-right: 105px solid transparent;
-  border-bottom: 180px solid #41b883;
+.smartphone-contents-col button {
+  border-radius: 12px;
+  height:50px!important;
+  padding:5px 2px 5px 2px!important;
 }
-
-.Triangle--two {
-  top: 30px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 87.5px solid transparent;
-  border-right: 87.5px solid transparent;
-  border-bottom: 150px solid #3b8070;
-}
-
-.Triangle--three {
-  top: 60px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-bottom: 120px solid #35495e;
-}
-
-.Triangle--four {
-  top: 120px;
-  left: 70px;
-  animation: godown 0.5s linear forwards 3s;
-  border-left: 35px solid transparent;
-  border-right: 35px solid transparent;
-  border-bottom: 60px solid #fff;
-}
-
-@keyframes turn {
-  100% {
-    transform: rotateX(0deg);
-  }
-}
-
-@keyframes godown {
-  100% {
-    top: 180px;
-  }
-}
-
-@keyframes goright {
-  100% {
-    left: 70px;
-  }
+.smartphone-contents-text {
+  font-size:12px;
 }
 </style>
