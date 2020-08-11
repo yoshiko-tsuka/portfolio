@@ -70,35 +70,35 @@
                   </template>
                   <template v-else>
                     <template 
-                      v-for="app in sheet"
+                      v-for="column in sheet"
                     >
-                      <v-if="isFirstColumn(app.id)">
-                        <v-row
-                          align="top"
-                          justify="center"
-                          class="smartphone-contents-row"
+                      <v-row
+                        align="top"
+                        justify="center"
+                        class="smartphone-contents-row"
+                      >
+                        <template 
+                          v-for="app in column"
                         >
-                      </v-if>
-                      <template v-if="slot in app">
-                        <SpApps 
-                          :frame_color="app.frame_color"
-                          :app_name="app.app_name"
-                        >
-                          <template v-for="span in slot">
-                            <span :style="span.style">{{ span.data }}</span>
+                          <template v-if="slot in app">
+                            <SpApps 
+                              :frame_color="app.frame_color"
+                              :app_name="app.app_name"
+                            >
+                              <template v-for="span in slot">
+                                <span :style="span.style">{{ span.data }}</span>
+                              </template>
+                            </SpApps>
                           </template>
-                        </SpApps>
-                      </template>
-                      <template v-else>
-                        <SpApps 
-                            :link="app.link"
-                            :frame_color="app.frame_color"
-                            :icon_color="app.icon_color"
-                            :icon="app.icon"
-                            :app_name="app.app_name"
-                        />
-                      </template>
-                      <template v-if="isLastColumn(app.id)">
+                          <template v-else>
+                            <SpApps 
+                                :link="app.link"
+                                :frame_color="app.frame_color"
+                                :icon_color="app.icon_color"
+                                :icon="app.icon"
+                                :app_name="app.app_name"
+                            />
+                          </template>
                         </v-row>
                       </template>
                     </template>
@@ -132,56 +132,62 @@ export default {
       apps: [
         { 
           sheet1: [
-            { 
-              id: 1,
-              link: 'https://twitter.com/S2hydrangeS2',
-              frame_color: 'light-blue accent-2',
-              icon_color: 'white',
-              icon: 'fab fa-twitter',
-              app_name: 'Twitter'
-            },
-            { 
-              id: 2,
-              link: 'https://github.com/yoshiko-tsuka',
-              frame_color: 'white',
-              icon_color: 'black',
-              icon: 'fab fa-github',
-              app_name: 'Github'
-            },
-            { 
-              id: 3,
-              link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
-              frame_color: '#0374B1',
-              icon_color: 'white',
-              icon: 'fab fa-linkedin-in',
-              app_name: 'Linkedin'
-            },
-            /* {
-              id: 4,
-              frame_color: 'white',
-              slot: [
-                { 
-                  style: 'color:red;font-size:10px;margin:0',
-                  data: this.week()
-                },
-                {
-                  style: 'color:black;margin:0',
-                  data: this.day()
-                }
-              ],
-              app_name: 'Calender'
-            },
             {
-              id: 5,
-              frame_color: 'white',
-              slot: [
-                {
-                  style: 'color:black;margin:0',
-                  data: this.hours() + ':' + this.minutes()
+              column1 : [
+                { 
+                  id: 1,
+                  link: 'https://twitter.com/S2hydrangeS2',
+                  frame_color: 'light-blue accent-2',
+                  icon_color: 'white',
+                  icon: 'fab fa-twitter',
+                  app_name: 'Twitter'
+                },
+                { 
+                  id: 2,
+                  link: 'https://github.com/yoshiko-tsuka',
+                  frame_color: 'white',
+                  icon_color: 'black',
+                  icon: 'fab fa-github',
+                  app_name: 'Github'
+                },
+                { 
+                  id: 3,
+                  link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
+                  frame_color: '#0374B1',
+                  icon_color: 'white',
+                  icon: 'fab fa-linkedin-in',
+                  app_name: 'Linkedin'
                 }
               ],
-              app_name: 'Clock'
-            }　*/
+              column2: [
+                /* {
+                    id: 4,
+                    frame_color: 'white',
+                    slot: [
+                      { 
+                        style: 'color:red;font-size:10px;margin:0',
+                        data: this.week()
+                      },
+                      {
+                        style: 'color:black;margin:0',
+                        data: this.day()
+                      }
+                    ],
+                    app_name: 'Calender'
+                  },
+                  {
+                    id: 5,
+                    frame_color: 'white',
+                    slot: [
+                      {
+                        style: 'color:black;margin:0',
+                        data: this.hours() + ':' + this.minutes()
+                      }
+                    ],
+                    app_name: 'Clock'
+                  }　*/
+              ]
+            } 
           ] 
         },
         {
@@ -218,20 +224,6 @@ export default {
   methods: {
     setDate() {
       this.date = new Date()
-    },
-    isFirstColumn(id) {
-      if (id % 3 === 1 ) {
-        return true
-      } else {
-        return false
-      }
-    },
-    ifLastColumn(id) {
-      if (id % 3 === 0) {
-        return true
-      } else {
-        return false
-      }
     }
   }
 }

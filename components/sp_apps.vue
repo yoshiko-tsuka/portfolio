@@ -17,17 +17,6 @@ export default {
     icon_color: String,
     icon: String,
     app_name: String
-  },
-  data () {
-    return {
-      message: 'お名前は？',
-      name: 'NoName'
-    }
-  },
-  methods: {
-    doAction () {
-      this.message = 'こんにちは！' + this.name + 'さん！'
-    }
   }
 }
 </script>
