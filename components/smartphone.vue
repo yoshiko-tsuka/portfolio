@@ -59,7 +59,7 @@
                   height="100%"
                   color="transparent"
                 >
-                  <template v-if="sheet === '[]'">
+                  <template v-if="sheet.contents.length === 0">
                     <v-row
                       class="fill-height"
                       align="center"
@@ -99,8 +99,8 @@
                                 :app_name="app.app_name"
                             />
                           </template>
-                        </v-row>
-                      </template>
+                        </template>
+                      </v-row>
                     </template>
                   </template>
                 </v-sheet>
@@ -108,7 +108,9 @@
             </template>
           </v-carousel>
         </v-card>
+
         <v-divider></v-divider>
+
         <div class="smartphone-bottom">
           <v-progress-circular  
             value="30"
@@ -117,6 +119,7 @@
             color="grey darken-1"
           ></v-progress-circular>
         </div>
+
       </v-card>
     </v-card>
   </v-col>
@@ -131,7 +134,7 @@ export default {
       date: new Date(),
       apps: [
         { 
-          sheet1: [
+          contents: [
             {
               column1 : [
                 { 
@@ -191,10 +194,10 @@ export default {
           ] 
         },
         {
-          sheet2: []
+          contents: []
         },
         {
-          sheet3: []
+          contents: []
         }
       ]
     }
