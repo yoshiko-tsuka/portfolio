@@ -51,7 +51,7 @@
             class="smartphone-contents"
           >
             <template 
-              v-for="sheet in apps"
+              v-for="(sheet, k, i) in apps"
             >
               <v-carousel-item
               >
@@ -70,37 +70,11 @@
                   </template>
                   <template v-else>
                     <template 
-                      v-for="column in sheet"
+                      v-for="apps in this.row_apps[i]"
                     >
-                      <v-row
-                        align="top"
-                        justify="center"
-                        class="smartphone-contents-row"
-                      >
-                        <template 
-                          v-for="app in column"
-                        >
-                          <template v-if="slot in app">
-                            <SpApps 
-                              :frame_color="app.frame_color"
-                              :app_name="app.app_name"
-                            >
-                              <template v-for="span in slot">
-                                <span :style="span.style">{{ span.data }}</span>
-                              </template>
-                            </SpApps>
-                          </template>
-                          <template v-else>
-                            <SpApps 
-                                :link="app.link"
-                                :frame_color="app.frame_color"
-                                :icon_color="app.icon_color"
-                                :icon="app.icon"
-                                :app_name="app.app_name"
-                            />
-                          </template>
-                        </template>
-                      </v-row>
+                      <SpApps
+                          :apps="apps"
+                      />
                     </template>
                   </template>
                 </v-sheet>
@@ -132,37 +106,35 @@ export default {
   data() {
     return {
       date: new Date(),
+      row_app: [],
       apps: [
         { 
           contents: [
-            {
-              column1 : [
-                { 
-                  id: 1,
-                  link: 'https://twitter.com/S2hydrangeS2',
-                  frame_color: 'light-blue accent-2',
-                  icon_color: 'white',
-                  icon: 'fab fa-twitter',
-                  app_name: 'Twitter'
-                },
-                { 
-                  id: 2,
-                  link: 'https://github.com/yoshiko-tsuka',
-                  frame_color: 'white',
-                  icon_color: 'black',
-                  icon: 'fab fa-github',
-                  app_name: 'Github'
-                },
-                { 
-                  id: 3,
-                  link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
-                  frame_color: '#0374B1',
-                  icon_color: 'white',
-                  icon: 'fab fa-linkedin-in',
-                  app_name: 'Linkedin'
-                }
-              ],
-              column2: [
+              { 
+                id: 0,
+                link: 'https://twitter.com/S2hydrangeS2',
+                frame_color: 'light-blue accent-2',
+                icon_color: 'white',
+                icon: 'fab fa-twitter',
+                app_name: 'Twitter'
+              },
+              { 
+                id: 1,
+                link: 'https://github.com/yoshiko-tsuka',
+                frame_color: 'white',
+                icon_color: 'black',
+                icon: 'fab fa-github',
+                app_name: 'Github'
+              },
+              { 
+                id: 2,
+                link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
+                frame_color: '#0374B1',
+                icon_color: 'white',
+                icon: 'fab fa-linkedin-in',
+                app_name: 'Linkedin'
+              }
+
                 /* {
                     id: 4,
                     frame_color: 'white',
@@ -189,9 +161,7 @@ export default {
                     ],
                     app_name: 'Clock'
                   }　*/
-              ]
-            } 
-          ] 
+            ]
         },
         {
           contents: []
@@ -207,6 +177,7 @@ export default {
   },
   created() {
     this.setDate()
+    this.getThisRowApps()
     setInterval(() => this.setDate(), 1000)
   },
   computed: {
@@ -225,9 +196,17 @@ export default {
     }
   },
   methods: {
+    getThisRowApps(contents, num) {
+      this.row_app = []
+      let max = 0;
+      (contents.length > num + 2)? max = num + 2 : max = contents.length
+      for (let i = num; i <= max; i++){
+        this.row_app.push(contents[i])
+      }
+    },
     setDate() {
       this.date = new Date()
-    }
+    }    
   }
 }
 </script>

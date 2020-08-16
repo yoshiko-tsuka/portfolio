@@ -1,22 +1,28 @@
 <template>
-  <v-col class="smartphone-contents-col">
-    <a :href="link" target="_blank" class="smartphone-btn">
-      <v-btn depressed small :color="frame_color">
-        <v-icon large :color="icon_color">{{ icon }}</v-icon>
-      </v-btn>
-    </a>
-    <p class="smartphone-contents-text">{{ app_name }}</p>
-  </v-col>
+  <v-row
+    align="top"
+    justify="center"
+    class="smartphone-contents-row"
+  >
+    <v-col 
+      v-for="app in apps"
+      :key="app.id"
+      class="smartphone-contents-col"
+    >
+      <a :href="app.link" target="_blank" class="smartphone-btn">
+        <v-btn depressed small :color="app.frame_color">
+          <v-icon large :color="app.icon_color">{{ app.icon }}</v-icon>
+        </v-btn>
+      </a>
+      <p class="smartphone-contents-text">{{ app.app_name }}</p>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
   props: {
-    link: String,
-    frame_color: String,
-    icon_color: String,
-    icon: String,
-    app_name: String
+    apps: Array
   }
 }
 </script>
