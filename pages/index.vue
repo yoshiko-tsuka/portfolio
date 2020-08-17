@@ -6,7 +6,7 @@
     style="height:100%;"
   >
     <v-container>
-      <v-row justify="center" align="center" height="100%">
+      <v-row class="justify-center align-center" height="100%">
         <v-col
           xs12
           sm6

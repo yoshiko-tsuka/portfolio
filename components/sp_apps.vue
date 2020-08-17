@@ -1,8 +1,6 @@
 <template>
   <v-row
-    align="top"
-    justify="center"
-    class="smartphone-contents-row"
+    class="smartphone-contents-row align-top justify-center"
   >
     <v-col 
       v-for="app in apps"
@@ -59,6 +57,9 @@ export default {
 .smartphone-contents-col {
   text-align:center;
   padding:0px 0px 0px 0px;
+}
+.smartphone-contents-row {
+  margin:10px 5px 10px 5px;
 }
 .smartphone-btn {
   text-decoration-line:none;

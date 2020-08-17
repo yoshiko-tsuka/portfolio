@@ -61,9 +61,7 @@
                 >
                   <template v-if="sheet.contents.length === 0">
                     <v-row
-                      class="fill-height"
-                      align="center"
-                      justify="center"
+                      class="fill-height justify-center align-center"
                     >
                       <div>Coming Soon!!</div>
                     </v-row>
@@ -244,9 +242,6 @@ export default {
 }
 .smartphone-contents {
   background-image: url('/wallpaper.png');
-}
-.smartphone-contents-row {
-  margin:10px 5px 10px 5px;
 }
 .smartphone-bottom {
   text-align:center;
