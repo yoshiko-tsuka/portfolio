@@ -9,12 +9,17 @@
       :key="app.id"
       class="smartphone-contents-col"
     >
-      <a :href="app.link" target="_blank" class="smartphone-btn">
+      <a v-if="'link' in app" :href="app.link" target="_blank" class="smartphone-btn">
         <v-btn depressed small :color="app.frame_color">
-          <v-icon large :color="app.icon_color">{{ app.icon }}</v-icon>
+          <v-icon large v-if="'icon_color' in app" :color="app.icon_color">{{ app.icon }}</v-icon>
         </v-btn>
       </a>
-      <p class="smartphone-contents-text">{{ app.app_name }}</p>
+      <v-btn depressed small v-if="'slot' in app" :color="app.frame_color">
+        <span v-for="sp in app.slot" :style="sp.style">
+          {{ doAction(sp.data) }}
+        </span>
+      </v-btn>
+      <p v-if="'app_name' in app" class="smartphone-contents-text">{{ app.app_name }}</p>
     </v-col>
   </v-row>
 </template>
@@ -22,7 +27,30 @@
 <script>
 export default {
   props: {
-    apps: Array
+    apps: Array,
+    date: ''
+  },
+  methods: {
+    doAction (action_name) {
+      switch (action_name) {
+        case 'getWeek':
+          return this.getWeek()
+        case 'getHours':
+          return this.getHours()
+        case 'getHourMinutes':
+          return this.getHourMinutes()
+      }
+    },
+    getWeek() {
+      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      return weekdays[this.date.getDay()]
+    },
+    getHours() {
+      return this.date.getHours()
+    },
+    getHourMinutes(){
+      return this.date.getHours() + ':' + (this.date.getMinutes()<10?'0':'') + this.date.getMinutes()
+    }
   }
 }
 </script>

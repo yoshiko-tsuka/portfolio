@@ -51,7 +51,7 @@
             class="smartphone-contents"
           >
             <template 
-              v-for="(sheet, k, i) in apps"
+              v-for="sheet in apps"
             >
               <v-carousel-item
               >
@@ -70,10 +70,11 @@
                   </template>
                   <template v-else>
                     <template 
-                      v-for="apps in this.row_apps[i]"
+                      v-for="apps in sheet.contents"
                     >
                       <SpApps
                           :apps="apps"
+                          :date="date"
                       />
                     </template>
                   </template>
@@ -110,8 +111,9 @@ export default {
       apps: [
         { 
           contents: [
+            [
               { 
-                id: 0,
+                id: 1,
                 link: 'https://twitter.com/S2hydrangeS2',
                 frame_color: 'light-blue accent-2',
                 icon_color: 'white',
@@ -119,7 +121,7 @@ export default {
                 app_name: 'Twitter'
               },
               { 
-                id: 1,
+                id: 2,
                 link: 'https://github.com/yoshiko-tsuka',
                 frame_color: 'white',
                 icon_color: 'black',
@@ -127,41 +129,46 @@ export default {
                 app_name: 'Github'
               },
               { 
-                id: 2,
+                id: 3,
                 link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
                 frame_color: '#0374B1',
                 icon_color: 'white',
                 icon: 'fab fa-linkedin-in',
                 app_name: 'Linkedin'
               }
-
-                /* {
-                    id: 4,
-                    frame_color: 'white',
-                    slot: [
-                      { 
-                        style: 'color:red;font-size:10px;margin:0',
-                        data: this.week()
-                      },
-                      {
-                        style: 'color:black;margin:0',
-                        data: this.day()
-                      }
-                    ],
-                    app_name: 'Calender'
+            ],
+            [
+              {
+                id: 4,
+                frame_color: 'white',
+                slot: [
+                  { 
+                    style: 'color:red;font-size:10px;margin:0',
+                    data: 'getWeek'
                   },
                   {
-                    id: 5,
-                    frame_color: 'white',
-                    slot: [
-                      {
-                        style: 'color:black;margin:0',
-                        data: this.hours() + ':' + this.minutes()
-                      }
-                    ],
-                    app_name: 'Clock'
-                  }　*/
+                    style: 'color:black;margin:0',
+                    data: 'getHours'
+                  }
+                ],
+                app_name: 'Calender'
+              },
+              {
+                id: 5,
+                frame_color: 'white',
+                slot: [
+                  {
+                    style: 'color:black;margin:0',
+                    data: 'getHourMinutes'
+                  }
+                ],
+                app_name: 'Clock'
+              },
+              {
+                id: 6
+              }
             ]
+          ]
         },
         {
           contents: []
@@ -177,7 +184,6 @@ export default {
   },
   created() {
     this.setDate()
-    this.getThisRowApps()
     setInterval(() => this.setDate(), 1000)
   },
   computed: {
@@ -196,17 +202,9 @@ export default {
     }
   },
   methods: {
-    getThisRowApps(contents, num) {
-      this.row_app = []
-      let max = 0;
-      (contents.length > num + 2)? max = num + 2 : max = contents.length
-      for (let i = num; i <= max; i++){
-        this.row_app.push(contents[i])
-      }
-    },
     setDate() {
       this.date = new Date()
-    }    
+    }
   }
 }
 </script>
