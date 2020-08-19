@@ -165,6 +165,32 @@ export default {
               {
                 id: 6
               }
+            ],
+            [
+              { 
+                id: 7,
+                link: 'https://twitter.com/S2hydrangeS2',
+                frame_color: 'light-blue accent-2',
+                icon_color: 'white',
+                icon: 'fab fa-twitter',
+                app_name: 'Twitter'
+              },
+              { 
+                id: 8,
+                link: 'https://github.com/yoshiko-tsuka',
+                frame_color: 'white',
+                icon_color: 'black',
+                icon: 'fab fa-github',
+                app_name: 'Github'
+              },
+              { 
+                id: 9,
+                link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
+                frame_color: '#0374B1',
+                icon_color: 'white',
+                icon: 'fab fa-linkedin-in',
+                app_name: 'Linkedin'
+              }
             ]
           ]
         },
