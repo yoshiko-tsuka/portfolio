@@ -73,6 +73,7 @@
                       <SpApps
                           :apps="apps"
                           :date="date"
+                          @music-event="music_overlay = true"
                       />
                     </template>
                   </template>
@@ -80,6 +81,48 @@
               </v-carousel-item>
             </template>
           </v-carousel>
+          <v-overlay
+            :absolute="true"
+            :value="music_overlay"
+          >
+           <v-card tile>
+            <v-progress-linear
+              :value="50"
+              class="my-0"
+              height="3"
+            ></v-progress-linear>
+
+            <v-list>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-subtitle>いいお天気ですね</v-list-item-subtitle>
+                  <v-list-item-subtitle>by ゆうきわたる</v-list-item-subtitle>
+                </v-list-item-content>
+
+                <v-list-item-icon>
+                  <v-btn icon>
+                    <v-icon>mdi-rewind</v-icon>
+                  </v-btn>
+                </v-list-item-icon>
+
+                <v-list-item-icon :class="{ 'mx-5': $vuetify.breakpoint.mdAndUp }">
+                  <v-btn icon>
+                    <v-icon>mdi-pause</v-icon>
+                  </v-btn>
+                </v-list-item-icon>
+
+                <v-list-item-icon
+                  class="ml-0"
+                  :class="{ 'mr-3': $vuetify.breakpoint.mdAndUp }"
+                >
+                  <v-btn icon>
+                    <v-icon>mdi-fast-forward</v-icon>
+                  </v-btn>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list>
+          </v-card>
+          </v-overlay>
         </v-card>
 
         <v-divider></v-divider>
@@ -90,6 +133,7 @@
             width="2"
             rotate="240"
             color="grey darken-1"
+            @click="music_overlay = false"
           ></v-progress-circular>
         </div>
 
@@ -106,6 +150,7 @@ export default {
     return {
       date: new Date(),
       row_app: [],
+      music_overlay: false,
       apps: [
         { 
           contents: [
@@ -169,27 +214,19 @@ export default {
             [
               { 
                 id: 7,
-                link: 'https://twitter.com/S2hydrangeS2',
-                frame_color: 'light-blue accent-2',
-                icon_color: 'white',
-                icon: 'fab fa-twitter',
-                app_name: 'Twitter'
+                frame_color: 'white',
+                style: 'color: #FF8C00; background: -webkit-linear-gradient(80deg, #40E0D0, #FF8C00, #FF0080); -webkit-background-clip: text; -webkit-text-fill-color: transparent;',
+                icon: 'fas fa-music',
+                modal: {
+                    data: 'music'
+                },
+                app_name: 'Music'
               },
               { 
                 id: 8,
-                link: 'https://github.com/yoshiko-tsuka',
-                frame_color: 'white',
-                icon_color: 'black',
-                icon: 'fab fa-github',
-                app_name: 'Github'
               },
               { 
                 id: 9,
-                link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
-                frame_color: '#0374B1',
-                icon_color: 'white',
-                icon: 'fab fa-linkedin-in',
-                app_name: 'Linkedin'
               }
             ]
           ]
