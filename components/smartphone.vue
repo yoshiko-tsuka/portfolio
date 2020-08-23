@@ -95,8 +95,8 @@
             <v-list>
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-subtitle>いいお天気ですね</v-list-item-subtitle>
-                  <v-list-item-subtitle>by ゆうきわたる</v-list-item-subtitle>
+                  <v-list-item-subtitle>パステルハウス</v-list-item-subtitle>
+                  <v-list-item-subtitle>by かずち</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-icon>
@@ -106,7 +106,7 @@
                 </v-list-item-icon>
 
                 <v-list-item-icon :class="{ 'mx-5': $vuetify.breakpoint.mdAndUp }">
-                  <v-btn icon>
+                  <v-btn icon @click="playMusic">
                     <v-icon>mdi-pause</v-icon>
                   </v-btn>
                 </v-list-item-icon>
@@ -146,11 +146,25 @@
 import SpApps from '@/components/sp_apps';
 
 export default {
+  mounted(){
+    this.sound = new Howl({
+      src: [
+        'musics/パステルハウス.mp3'
+      ],
+
+      // 設定 (以下はデフォルト値です)
+      preload: true,   // 事前ロード
+      volume: 1.0,     // 音量(0.0〜1.0の範囲で指定)
+      loop: false,     // ループ再生するか
+      autoplay: false, // 自動再生するか
+   })
+  },
   data() {
     return {
       date: new Date(),
       row_app: [],
       music_overlay: false,
+      sound: '',
       apps: [
         { 
           contents: [
@@ -265,6 +279,9 @@ export default {
   methods: {
     setDate() {
       this.date = new Date()
+    },
+    playMusic() {
+      this.sound.play()
     }
   }
 }
