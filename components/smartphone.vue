@@ -87,7 +87,7 @@
           >
            <v-card tile>
             <v-progress-linear
-              :value="50"
+              :value="soundProgress"
               class="my-0"
               height="3"
             ></v-progress-linear>
@@ -99,26 +99,26 @@
                   <v-list-item-subtitle>by かずち</v-list-item-subtitle>
                 </v-list-item-content>
 
-                <v-list-item-icon>
+                <!-- <v-list-item-icon>
                   <v-btn icon>
                     <v-icon>mdi-rewind</v-icon>
                   </v-btn>
-                </v-list-item-icon>
+                </v-list-item-icon> -->
 
                 <v-list-item-icon :class="{ 'mx-5': $vuetify.breakpoint.mdAndUp }">
                   <v-btn icon @click="playMusic">
-                    <v-icon>mdi-pause</v-icon>
+                    <v-icon>{{ playStatus }}</v-icon>
                   </v-btn>
                 </v-list-item-icon>
 
-                <v-list-item-icon
+                <!-- <v-list-item-icon
                   class="ml-0"
                   :class="{ 'mr-3': $vuetify.breakpoint.mdAndUp }"
                 >
                   <v-btn icon>
                     <v-icon>mdi-fast-forward</v-icon>
                   </v-btn>
-                </v-list-item-icon>
+                </v-list-item-icon> -->
               </v-list-item>
             </v-list>
           </v-card>
@@ -144,59 +144,23 @@
 
 <script>
 import SpApps from '@/components/sp_apps';
+import {Howl} from 'howler';
 
 export default {
-  mounted(){
-    this.sound = new Howl({
-      src: [
-        'musics/パステルハウス.mp3'
-      ],
-
-      // 設定 (以下はデフォルト値です)
-      preload: true,   // 事前ロード
-      volume: 1.0,     // 音量(0.0〜1.0の範囲で指定)
-      loop: false,     // ループ再生するか
-      autoplay: false, // 自動再生するか
-   })
-  },
   data() {
     return {
       date: new Date(),
       row_app: [],
       music_overlay: false,
+      playStatus: 'mdi-play',
       sound: '',
+      soundProgress: 0,
       apps: [
         { 
           contents: [
             [
-              { 
-                id: 1,
-                link: 'https://twitter.com/S2hydrangeS2',
-                frame_color: 'light-blue accent-2',
-                icon_color: 'white',
-                icon: 'fab fa-twitter',
-                app_name: 'Twitter'
-              },
-              { 
-                id: 2,
-                link: 'https://github.com/yoshiko-tsuka',
-                frame_color: 'white',
-                icon_color: 'black',
-                icon: 'fab fa-github',
-                app_name: 'Github'
-              },
-              { 
-                id: 3,
-                link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
-                frame_color: '#0374B1',
-                icon_color: 'white',
-                icon: 'fab fa-linkedin-in',
-                app_name: 'Linkedin'
-              }
-            ],
-            [
               {
-                id: 4,
+                id: 1,
                 frame_color: 'white',
                 slot: [
                   { 
@@ -211,7 +175,7 @@ export default {
                 app_name: 'Calender'
               },
               {
-                id: 5,
+                id: 2,
                 frame_color: 'white',
                 slot: [
                   {
@@ -222,7 +186,33 @@ export default {
                 app_name: 'Clock'
               },
               {
-                id: 6
+                id: 3
+              }
+            ],
+            [
+              { 
+                id: 4,
+                link: 'https://twitter.com/S2hydrangeS2',
+                frame_color: 'light-blue accent-2',
+                icon_color: 'white',
+                icon: 'fab fa-twitter',
+                app_name: 'Twitter'
+              },
+              { 
+                id: 5,
+                link: 'https://github.com/yoshiko-tsuka',
+                frame_color: 'white',
+                icon_color: 'black',
+                icon: 'fab fa-github',
+                app_name: 'Github'
+              },
+              { 
+                id: 6,
+                link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
+                frame_color: '#0374B1',
+                icon_color: 'white',
+                icon: 'fab fa-linkedin-in',
+                app_name: 'Linkedin'
               }
             ],
             [
@@ -259,7 +249,19 @@ export default {
   },
   created() {
     this.setDate()
+    this.sound = new Howl({
+      src: [
+        'musics/パステルハウス.mp3'
+      ],
+
+      // 設定 (以下はデフォルト値です)
+      preload: true,   // 事前ロード
+      volume: 0.5,     // 音量(0.0〜1.0の範囲で指定)
+      loop: true,     // ループ再生するか
+      autoplay: false, // 自動再生するか
+    })
     setInterval(() => this.setDate(), 1000)
+    setInterval(() => this.setProgress(), 1000)
   },
   computed: {
     week() {
@@ -281,7 +283,17 @@ export default {
       this.date = new Date()
     },
     playMusic() {
-      this.sound.play()
+      if( this.sound.playing() ){
+        this.playStatus = 'mdi-play'
+        this.sound.pause()
+      }
+      else{
+        this.playStatus = 'mdi-pause'
+        this.sound.play()
+      }
+    },
+    setProgress(){
+      if( this.sound.playing() ) this.soundProgress = this.sound.seek()/this.sound.duration()*100
     }
   }
 }

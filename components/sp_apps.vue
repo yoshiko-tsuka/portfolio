@@ -46,7 +46,6 @@ export default {
         case 'getHourMinutes':
           return this.getHourMinutes()
         case 'music':
-          console.log("aaaa")
           this.$emit('music-event')
       }
     },
