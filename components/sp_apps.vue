@@ -19,7 +19,7 @@
       </v-btn>
 
       <v-btn depressed small v-if="'modal' in app" :color="app.frame_color" @click="doAction(app.modal.data)">
-        <v-icon medium v-if="'style' in app" :style="app.style">{{ app.icon }}</v-icon>
+        <v-img :src="app.src" v-if="'style' in app" :style="app.style" maxWidth="36px"></v-img>
       </v-btn>
       <p v-if="'app_name' in app" class="smartphone-contents-text">{{ app.app_name }}</p>
     </v-col>

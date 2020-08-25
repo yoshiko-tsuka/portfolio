@@ -81,10 +81,8 @@
               </v-carousel-item>
             </template>
           </v-carousel>
-          <v-overlay
-            :absolute="true"
-            :value="music_overlay"
-          >
+          
+          <v-bottom-sheet v-model="music_overlay" height="350px" color="transparent" @click.stop="music_overlay = false" inset hide-overlay>
            <v-card tile>
             <v-progress-linear
               :value="soundProgress"
@@ -106,7 +104,7 @@
                 </v-list-item-icon> -->
 
                 <v-list-item-icon :class="{ 'mx-5': $vuetify.breakpoint.mdAndUp }">
-                  <v-btn icon @click="playMusic">
+                  <v-btn icon @click.stop="playMusic">
                     <v-icon>{{ playStatus }}</v-icon>
                   </v-btn>
                 </v-list-item-icon>
@@ -122,6 +120,7 @@
               </v-list-item>
             </v-list>
           </v-card>
+          </v-bottom-sheet>
           </v-overlay>
         </v-card>
 
@@ -219,8 +218,8 @@ export default {
               { 
                 id: 7,
                 frame_color: 'white',
-                style: 'color: #FF8C00; background: -webkit-linear-gradient(80deg, #40E0D0, #FF8C00, #FF0080); -webkit-background-clip: text; -webkit-text-fill-color: transparent;',
-                icon: 'fas fa-music',
+                style: 'color: #FF8C00;',
+                src: '/musics/music.png',
                 modal: {
                     data: 'music'
                 },
@@ -251,7 +250,7 @@ export default {
     this.setDate()
     this.sound = new Howl({
       src: [
-        'musics/パステルハウス.mp3'
+        'musics/pastelhouse.mp3'
       ],
 
       // 設定 (以下はデフォルト値です)
