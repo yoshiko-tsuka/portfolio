@@ -227,9 +227,19 @@ export default {
               },
               { 
                 id: 8,
+                link: 'https://twitter.com/S2hydrangeS2',
+                frame_color: 'red',
+                icon_color: 'white',
+                icon: 'mdi-gmail',
+                app_name: 'Mail'
               },
               { 
                 id: 9,
+                link: 'https://twitter.com/S2hydrangeS2',
+                frame_color: 'white',
+                icon_color: 'red',
+                icon: 'attach_money',
+                app_name: 'Price'
               }
             ]
           ]
