@@ -237,7 +237,7 @@ export default {
                 id: 9,
                 link: 'https://twitter.com/S2hydrangeS2',
                 frame_color: 'white',
-                icon_color: 'red',
+                icon_color: 'orenge',
                 icon: 'attach_money',
                 app_name: 'Price'
               }
