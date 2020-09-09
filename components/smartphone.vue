@@ -272,6 +272,9 @@ export default {
     setInterval(() => this.setDate(), 1000)
     setInterval(() => this.setProgress(), 1000)
   },
+  mounted(){
+    this.apigClient = apigClientFactory.newClient()
+  },
   computed: {
     week() {
       const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -299,6 +302,26 @@ export default {
       else{
         this.playStatus = 'mdi-pause'
         this.sound.play()
+        const self = this
+        const params = {}
+        const body = {
+          recipient: "44534453yoshiko@gmail.com",
+          content: {
+              name: "山田 太郎",
+              nameFurigana: "ヤマダ タロウ",
+              age: 25,
+              prefecture: "北海道",
+              phone: "123-4567-8900"
+          }
+        }
+        const additionalParams = {}
+        this.apigClient
+          .sendhtmlmailPost(params, body, additionalParams)
+          .then(function(result) {
+            console.log(result)
+          }).catch(function ( error ) {
+            console.log("NG")
+          })
       }
     },
     setProgress(){

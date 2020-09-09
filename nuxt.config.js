@@ -28,6 +28,19 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons'},
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'}
+    ],
+    script: [
+      { src: "/apiGateway-js-sdk/lib/axios/dist/axios.standalone.js" },
+      { src: "/apiGateway-js-sdk/lib/CryptoJS/rollups/hmac-sha256.js" },
+      { src: "/apiGateway-js-sdk/lib/CryptoJS/rollups/sha256.js" },
+      { src: "/apiGateway-js-sdk/lib/CryptoJS/components/hmac.js" },
+      { src: "/apiGateway-js-sdk/lib/CryptoJS/components/enc-base64.js" },
+      { src: "/apiGateway-js-sdk/lib/url-template/url-template.js" },
+      { src: "/apiGateway-js-sdk/lib/apiGatewayCore/sigV4Client.js" },
+      { src: "/apiGateway-js-sdk/lib/apiGatewayCore/apiGatewayClient.js" },
+      { src: "/apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js" },
+      { src: "/apiGateway-js-sdk/lib/apiGatewayCore/utils.js" },
+      { src: "/apiGateway-js-sdk/apigClient.js" }
     ]
   },
   /*
