@@ -74,6 +74,7 @@
                           :apps="apps"
                           :date="date"
                           @music-event="music_overlay = true"
+                          @mail-event="mail_overlay = true"
                       />
                     </template>
                   </template>
@@ -121,6 +122,25 @@
             </v-list>
           </v-card>
           </v-bottom-sheet>
+
+          <v-bottom-sheet v-model="mail_overlay" height="350px" color="transparent" @click.stop="mail_overlay = false" inset hide-overlay>
+           <v-card tile>
+            <v-progress-linear
+              :value="soundProgress"
+              class="my-0"
+              height="3"
+            ></v-progress-linear>
+
+            <v-list>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-subtitle>パステルハウス</v-list-item-subtitle>
+                  <v-list-item-subtitle>by かずち</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-card>
+          </v-bottom-sheet>
           </v-overlay>
         </v-card>
 
@@ -152,6 +172,7 @@ export default {
       row_app: [],
       music_overlay: false,
       playStatus: 'mdi-play',
+      mail_overlay: false,
       sound: '',
       soundProgress: 0,
       apps: [
@@ -227,10 +248,12 @@ export default {
               },
               { 
                 id: 8,
-                link: 'https://twitter.com/S2hydrangeS2',
                 frame_color: 'red',
                 icon_color: 'white',
                 icon: 'mdi-gmail',
+                modal: {
+                    data: 'mail'
+                },
                 app_name: 'Mail'
               },
               { 

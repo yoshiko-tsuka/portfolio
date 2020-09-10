@@ -19,7 +19,8 @@
       </v-btn>
 
       <v-btn depressed small v-if="'modal' in app" :color="app.frame_color" @click="doAction(app.modal.data)">
-        <v-img :src="app.src" v-if="'style' in app" :style="app.style" maxWidth="36px"></v-img>
+        <v-img v-if="'style' in app" :src="app.src"  :style="app.style" maxWidth="36px"></v-img>
+        <v-icon large v-if="'icon_color' in app" :color="app.icon_color">{{ app.icon }}</v-icon>
       </v-btn>
       <p v-if="'app_name' in app" class="smartphone-contents-text">{{ app.app_name }}</p>
     </v-col>
@@ -47,6 +48,8 @@ export default {
           return this.getHourMinutes()
         case 'music':
           this.$emit('music-event')
+        case 'mail':
+          this.$emit('mail-event')
       }
     },
     getWeek() {
