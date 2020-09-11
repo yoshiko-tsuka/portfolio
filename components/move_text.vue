@@ -8,7 +8,7 @@
       <text class="main_name" x="0" y="100">TSUKA</text>
       <text class="main_name" x="0" y="150">YOSHIKO</text>
     </clipPath>
-    <image id="name_behind" xlink:href="background.png" height="250" width="250" x="0" :y="image_y" clip-path="url(#cpath1)" />
+    <image id="name_behind" xlink:href="@/assets/background.png" height="250" width="250" x="0" :y="image_y" clip-path="url(#cpath1)" />
   </svg>
 </template>
 

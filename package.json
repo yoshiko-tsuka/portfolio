@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "howler": "^2.2.0",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.14.0",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",

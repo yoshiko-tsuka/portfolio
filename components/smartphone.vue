@@ -125,20 +125,46 @@
 
           <v-bottom-sheet v-model="mail_overlay" height="350px" color="transparent" @click.stop="mail_overlay = false" inset hide-overlay>
            <v-card tile>
-            <v-progress-linear
-              :value="soundProgress"
-              class="my-0"
-              height="3"
-            ></v-progress-linear>
+            <v-card-title class="headline">お問い合わせ</v-card-title>
+            <form>
+              <v-text-field
+                v-model="name"
+                :error-messages="nameErrors"
+                :counter="10"
+                label="Name"
+                required
+                @input="$v.name.$touch()"
+                @blur="$v.name.$touch()"
+              ></v-text-field>
+              <v-text-field
+                v-model="email"
+                :error-messages="emailErrors"
+                label="E-mail"
+                required
+                @input="$v.email.$touch()"
+                @blur="$v.email.$touch()"
+              ></v-text-field>
+              <v-select
+                v-model="select"
+                :items="items"
+                :error-messages="selectErrors"
+                label="Item"
+                required
+                @change="$v.select.$touch()"
+                @blur="$v.select.$touch()"
+              ></v-select>
+              <v-checkbox
+                v-model="checkbox"
+                :error-messages="checkboxErrors"
+                label="Do you agree?"
+                required
+                @change="$v.checkbox.$touch()"
+                @blur="$v.checkbox.$touch()"
+              ></v-checkbox>
 
-            <v-list>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-subtitle>パステルハウス</v-list-item-subtitle>
-                  <v-list-item-subtitle>by かずち</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+              <v-btn class="mr-4" @click="submit">submit</v-btn>
+              <v-btn @click="clear">clear</v-btn>
+            </form>
           </v-card>
           </v-bottom-sheet>
           </v-overlay>
@@ -164,8 +190,21 @@
 <script>
 import SpApps from '@/components/sp_apps';
 import {Howl} from 'howler';
+import { validationMixin } from 'vuelidate';
+import { required, maxLength, email } from 'vuelidate/lib/validators';
 
 export default {
+  mixins: [validationMixin],
+  validations: {
+    name: { required, maxLength: maxLength(10) },
+    email: { required, email },
+    select: { required },
+    checkbox: {
+      checked (val) {
+        return val
+      },
+    },
+  },
   data() {
     return {
       date: new Date(),
@@ -175,6 +214,16 @@ export default {
       mail_overlay: false,
       sound: '',
       soundProgress: 0,
+      name: '',
+      email: '',
+      select: null,
+      items: [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+      ],
+      checkbox: false,
       apps: [
         { 
           contents: [
@@ -240,7 +289,7 @@ export default {
                 id: 7,
                 frame_color: 'white',
                 style: 'color: #FF8C00;',
-                src: '/musics/music.png',
+                src: 'musics/music.png',
                 modal: {
                     data: 'music'
                 },
@@ -285,7 +334,6 @@ export default {
       src: [
         'musics/pastelhouse.mp3'
       ],
-
       // 設定 (以下はデフォルト値です)
       preload: true,   // 事前ロード
       volume: 0.5,     // 音量(0.0〜1.0の範囲で指定)
@@ -311,6 +359,32 @@ export default {
     },
     minutes() {
       return (this.date.getMinutes()<10?'0':'') + this.date.getMinutes()
+    },
+    checkboxErrors () {
+      const errors = []
+      if (!this.$v.checkbox.$dirty) return errors
+      !this.$v.checkbox.checked && errors.push('You must agree to continue!')
+      return errors
+    },
+    selectErrors () {
+      const errors = []
+      if (!this.$v.select.$dirty) return errors
+      !this.$v.select.required && errors.push('Item is required')
+      return errors
+    },
+    nameErrors () {
+      const errors = []
+      if (!this.$v.name.$dirty) return errors
+      !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
+      !this.$v.name.required && errors.push('Name is required.')
+      return errors
+    },
+    emailErrors () {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email && errors.push('Must be valid e-mail')
+      !this.$v.email.required && errors.push('E-mail is required')
+      return errors
     }
   },
   methods: {
@@ -349,6 +423,16 @@ export default {
     },
     setProgress(){
       if( this.sound.playing() ) this.soundProgress = this.sound.seek()/this.sound.duration()*100
+    },
+    submit () {
+      this.$v.$touch()
+    },
+    clear () {
+      this.$v.$reset()
+      this.name = ''
+      this.email = ''
+      this.select = null
+      this.checkbox = false
     }
   }
 }
@@ -388,7 +472,7 @@ export default {
   text-align:right;
 }
 .smartphone-contents {
-  background-image: url('/wallpaper.png');
+  background-image: url('../assets/wallpaper.png');
 }
 .smartphone-bottom {
   text-align:center;
