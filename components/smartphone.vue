@@ -73,8 +73,9 @@
                       <SpApps
                           :apps="apps"
                           :date="date"
-                          @music-event="music_overlay = true"
-                          @mail-event="mail_overlay = true"
+                          @overlay-event="openOverlay()"
+                          @music-event="musicOverlay = true"
+                          @mail-event="mailOverlay = true"
                       />
                     </template>
                   </template>
@@ -83,8 +84,8 @@
             </template>
           </v-carousel>
           
-          <v-bottom-sheet v-model="music_overlay" height="350px" color="transparent" @click.stop="music_overlay = false" inset hide-overlay>
-           <v-card tile>
+          <v-bottom-sheet v-model="overlay" height="350px" color="transparent" inset hide-overlay>
+           <v-card tile v-show="musicOverlay">
             <v-progress-linear
               :value="soundProgress"
               class="my-0"
@@ -121,53 +122,56 @@
               </v-list-item>
             </v-list>
           </v-card>
-          </v-bottom-sheet>
 
-          <v-bottom-sheet v-model="mail_overlay" height="350px" color="transparent" @click.stop="mail_overlay = false" inset hide-overlay>
-           <v-card tile>
+          <v-card tile v-show="mailOverlay">
             <v-card-title class="headline">お問い合わせ</v-card-title>
-            <form>
-              <v-text-field
-                v-model="name"
-                :error-messages="nameErrors"
-                :counter="10"
-                label="Name"
-                required
-                @input="$v.name.$touch()"
-                @blur="$v.name.$touch()"
-              ></v-text-field>
-              <v-text-field
-                v-model="email"
-                :error-messages="emailErrors"
-                label="E-mail"
-                required
-                @input="$v.email.$touch()"
-                @blur="$v.email.$touch()"
-              ></v-text-field>
-              <v-select
-                v-model="select"
-                :items="items"
-                :error-messages="selectErrors"
-                label="Item"
-                required
-                @change="$v.select.$touch()"
-                @blur="$v.select.$touch()"
-              ></v-select>
-              <v-checkbox
-                v-model="checkbox"
-                :error-messages="checkboxErrors"
-                label="Do you agree?"
-                required
-                @change="$v.checkbox.$touch()"
-                @blur="$v.checkbox.$touch()"
-              ></v-checkbox>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                <form>
+                  <div>
+                    <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
+                      <label class="form__label">Name</label>
+                      <input class="form__input" v-model="$v.name.$model"/>
+                    </div>
+                    <div class="error" v-if="!$v.name.required">Field is required</div>
+                    <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
+                    <tree-view :data="$v.name" :options="{rootObjectKey: '$v.name', maxDepth: 2}"></tree-view>
+                  </div>
+                  <v-text-field
+                    v-model="email"
+                    :error-messages="emailErrors"
+                    label="E-mail"
+                    required
+                    @input="$v.email.$touch()"
+                    @blur="$v.email.$touch()"
+                  ></v-text-field>
+                  <v-select
+                    v-model="select"
+                    :items="items"
+                    :error-messages="selectErrors"
+                    label="Item"
+                    required
+                    @change="$v.select.$touch()"
+                    @blur="$v.select.$touch()"
+                  ></v-select>
+                  <v-checkbox
+                    v-model="checkbox"
+                    :error-messages="checkboxErrors"
+                    label="Do you agree?"
+                    required
+                    @change="$v.checkbox.$touch()"
+                    @blur="$v.checkbox.$touch()"
+                  ></v-checkbox>
 
-              <v-btn class="mr-4" @click="submit">submit</v-btn>
-              <v-btn @click="clear">clear</v-btn>
-            </form>
+                  <v-btn class="mr-4" @click="submit">submit</v-btn>
+                  <v-btn @click="clear">clear</v-btn>
+                </form>
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card>
           </v-bottom-sheet>
-          </v-overlay>
         </v-card>
 
         <v-divider></v-divider>
@@ -178,7 +182,6 @@
             width="2"
             rotate="240"
             color="grey darken-1"
-            @click="music_overlay = false"
           ></v-progress-circular>
         </div>
 
@@ -191,27 +194,20 @@
 import SpApps from '@/components/sp_apps';
 import {Howl} from 'howler';
 import { validationMixin } from 'vuelidate';
-import { required, maxLength, email } from 'vuelidate/lib/validators';
+import { required, minLength, between, maxLength, email } from 'vuelidate/lib/validators'
 
 export default {
-  mixins: [validationMixin],
-  validations: {
-    name: { required, maxLength: maxLength(10) },
-    email: { required, email },
-    select: { required },
-    checkbox: {
-      checked (val) {
-        return val
-      },
-    },
+  components: {
+    SpApps
   },
   data() {
     return {
       date: new Date(),
       row_app: [],
-      music_overlay: false,
       playStatus: 'mdi-play',
-      mail_overlay: false,
+      overlay: false,
+      musicOverlay: false,
+      mailOverlay: false,
       sound: '',
       soundProgress: 0,
       name: '',
@@ -325,8 +321,19 @@ export default {
       ]
     }
   },
-  components: {
-    SpApps
+  mixins: [validationMixin],
+  validations: {
+    name: {
+      required,
+      minLength: minLength(2)
+    },
+    email: { required, email },
+    select: { required },
+    checkbox: {
+      checked (val) {
+        return val
+      },
+    }
   },
   created() {
     this.setDate()
@@ -336,7 +343,7 @@ export default {
       ],
       // 設定 (以下はデフォルト値です)
       preload: true,   // 事前ロード
-      volume: 0.5,     // 音量(0.0〜1.0の範囲で指定)
+      volume: 0.1,     // 音量(0.0〜1.0の範囲で指定)
       loop: true,     // ループ再生するか
       autoplay: false, // 自動再生するか
     })
@@ -370,13 +377,6 @@ export default {
       const errors = []
       if (!this.$v.select.$dirty) return errors
       !this.$v.select.required && errors.push('Item is required')
-      return errors
-    },
-    nameErrors () {
-      const errors = []
-      if (!this.$v.name.$dirty) return errors
-      !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
-      !this.$v.name.required && errors.push('Name is required.')
       return errors
     },
     emailErrors () {
@@ -433,6 +433,12 @@ export default {
       this.email = ''
       this.select = null
       this.checkbox = false
+    },
+    openOverlay () {
+      this.overlay = true
+      // reset show overlay
+      this.musicOverlay = false
+      this.mailOverlay = false
     }
   }
 }
@@ -477,5 +483,35 @@ export default {
 .smartphone-bottom {
   text-align:center;
   padding:7px 10px 7px 10px;
+}
+.form__label {
+    font-size: 0.8125rem;
+    color: #4b6372;
+    margin-bottom: 0.3125rem;
+    margin-left: 0.875rem;
+    display: block;
+    font-family: "Lato", sans-serif;
+}
+.form__input{
+    font-family: "Lato", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: #374853;
+    line-height: 2.375rem;
+    min-height: 2.375rem;
+    position: relative;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    background: #fff;
+    padding: 0 0.8125rem;
+    width: 100%;
+    transition: border .1s ease;
+    box-sizing: border-box;
+}
+.form-group--error{
+    animation-name: shakeError;
+    animation-fill-mode: forwards;
+    animation-duration: .6s;
+    animation-timing-function: ease-in-out;
 }
 </style>

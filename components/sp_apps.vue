@@ -42,14 +42,21 @@ export default {
       switch (action_name) {
         case 'getWeek':
           return this.getWeek()
+          break
         case 'getHours':
           return this.getHours()
+          break
         case 'getHourMinutes':
           return this.getHourMinutes()
+          break
         case 'music':
+          this.$emit('overlay-event')
           this.$emit('music-event')
+          break
         case 'mail':
+          this.$emit('overlay-event')
           this.$emit('mail-event')
+          break
       }
     },
     getWeek() {
