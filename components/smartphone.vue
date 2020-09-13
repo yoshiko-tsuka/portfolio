@@ -124,49 +124,90 @@
           </v-card>
 
           <v-card tile v-show="mailOverlay">
-            <v-card-title class="headline">お問い合わせ</v-card-title>
             <v-container>
-              <v-row>
-                <v-col cols="12">
-                <form>
-                  <div>
-                    <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
-                      <label class="form__label">Name</label>
-                      <input class="form__input" v-model="$v.name.$model"/>
-                    </div>
-                    <div class="error" v-if="!$v.name.required">Field is required</div>
-                    <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
-                    <tree-view :data="$v.name" :options="{rootObjectKey: '$v.name', maxDepth: 2}"></tree-view>
-                  </div>
-                  <v-text-field
-                    v-model="email"
-                    :error-messages="emailErrors"
-                    label="E-mail"
-                    required
-                    @input="$v.email.$touch()"
-                    @blur="$v.email.$touch()"
-                  ></v-text-field>
-                  <v-select
-                    v-model="select"
-                    :items="items"
-                    :error-messages="selectErrors"
-                    label="Item"
-                    required
-                    @change="$v.select.$touch()"
-                    @blur="$v.select.$touch()"
-                  ></v-select>
-                  <v-checkbox
-                    v-model="checkbox"
-                    :error-messages="checkboxErrors"
-                    label="Do you agree?"
-                    required
-                    @change="$v.checkbox.$touch()"
-                    @blur="$v.checkbox.$touch()"
-                  ></v-checkbox>
+              <v-row justify="center">
+                <v-col cols="12" md="8">
+                    <v-card-title class="headline">お問い合わせ</v-card-title>
+                    <v-card-subtitle>※全て必須項目です。</v-card-subtitle>
+                    <v-list-item>
+                      <v-list-item-content>
+                      <form>
+                        <v-text-field
+                          v-model="name"
+                          :error-messages="nameErrors"
+                          :counter="10"
+                          label="お名前"
+                          outlined
+                          required
+                          @input="$v.name.$touch()"
+                          @blur="$v.name.$touch()"
+                        ></v-text-field>
+                        <v-text-field
+                          v-model="email"
+                          :error-messages="emailErrors"
+                          label="E-mail"
+                          outlined
+                          required
+                          @input="$v.email.$touch()"
+                          @blur="$v.email.$touch()"
+                        ></v-text-field>
+                        <v-list-item-title>お問い合わせ内容</v-list-item-title>
+                        <v-container style="padding:0">
+                          <v-row justify="center">
+                            <v-col style="padding:0 0 0 10px">
+                              <v-checkbox
+                                v-model="checkbox"
+                                :error-messages="checkboxErrors"
+                                label="ホームページ作成"
+                                required
+                                @change="$v.checkbox.$touch()"
+                                @blur="$v.checkbox.$touch()"
+                              ></v-checkbox>
+                            </v-col>
+                            <v-col style="padding:0 0 0 5px">
+                              <v-checkbox
+                                v-model="checkbox"
+                                :error-messages="checkboxErrors"
+                                label="システム開発"
+                                required
+                                @change="$v.checkbox.$touch()"
+                                @blur="$v.checkbox.$touch()"
+                              ></v-checkbox>
+                            </v-col>
+                            <v-col style="padding:0 0 0 5px">
+                              <v-checkbox
+                                v-model="checkbox"
+                                :error-messages="checkboxErrors"
+                                label="その他"
+                                required
+                                @change="$v.checkbox.$touch()"
+                                @blur="$v.checkbox.$touch()"
+                              ></v-checkbox>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                        <v-textarea
+                          label="詳細"
+                          auto-grow
+                          outlined
+                          rows="10"
+                          row-height="15"
+                        ></v-textarea>
+                        <v-checkbox
+                          v-model="checkbox"
+                          :error-messages="checkboxErrors"
+                          label="同意する"
+                          required
+                          @change="$v.checkbox.$touch()"
+                          @blur="$v.checkbox.$touch()"
+                        ></v-checkbox>
 
-                  <v-btn class="mr-4" @click="submit">submit</v-btn>
-                  <v-btn @click="clear">clear</v-btn>
-                </form>
+                        <v-btn class="mr-4" @click="submit">submit</v-btn>
+                        <v-btn @click="clear">clear</v-btn>
+
+                      </form>
+                    </v-list-item-content>
+                  </v-list-item>
                 </v-col>
               </v-row>
             </v-container>
@@ -191,9 +232,9 @@
 </template>
 
 <script>
-import SpApps from '@/components/sp_apps';
-import {Howl} from 'howler';
-import { validationMixin } from 'vuelidate';
+import SpApps from '@/components/sp_apps'
+import { Howl } from 'howler'
+import { validationMixin } from 'vuelidate'
 import { required, minLength, between, maxLength, email } from 'vuelidate/lib/validators'
 
 export default {
@@ -210,6 +251,7 @@ export default {
       mailOverlay: false,
       sound: '',
       soundProgress: 0,
+      submitStatus: null,
       name: '',
       email: '',
       select: null,
@@ -325,10 +367,10 @@ export default {
   validations: {
     name: {
       required,
-      minLength: minLength(2)
+      minLength: minLength(2),
+      maxLength: maxLength(10)
     },
     email: { required, email },
-    select: { required },
     checkbox: {
       checked (val) {
         return val
@@ -367,10 +409,18 @@ export default {
     minutes() {
       return (this.date.getMinutes()<10?'0':'') + this.date.getMinutes()
     },
+    nameErrors () {
+        const errors = []
+        if (!this.$v.name.$dirty) return errors
+        !this.$v.name.minLength && errors.push('２文字以上10文字以下で記入してください。')
+        !this.$v.name.maxLength && errors.push('２文字以上10文字以下で記入してください。')
+        !this.$v.name.required && errors.push('お名前を記入してください。')
+        return errors
+    },
     checkboxErrors () {
       const errors = []
       if (!this.$v.checkbox.$dirty) return errors
-      !this.$v.checkbox.checked && errors.push('You must agree to continue!')
+      !this.$v.checkbox.checked && errors.push('個人情報のお取り扱いへの同意をお願いします。')
       return errors
     },
     selectErrors () {
@@ -513,5 +563,14 @@ export default {
     animation-fill-mode: forwards;
     animation-duration: .6s;
     animation-timing-function: ease-in-out;
+}
+.error{
+  font-size: 0.75rem;
+  line-height: 1;
+  display: block;
+  margin-left: 14px;
+  margin-top: -1.6875rem;
+  margin-bottom: 0.9375rem;
+  color: #f57f6c;
 }
 </style>
