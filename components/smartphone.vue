@@ -153,7 +153,7 @@
                         ></v-text-field>
                         <v-list-item-title>お問い合わせ内容</v-list-item-title>
                         <v-container style="padding:0">
-                          <v-row justify="center">
+                          <v-row justify="space-around">
                             <v-col style="padding:0 0 0 10px">
                               <v-checkbox
                                 v-model="checkbox"
@@ -193,15 +193,23 @@
                           rows="10"
                           row-height="15"
                         ></v-textarea>
-                        <v-checkbox
-                          v-model="checkbox"
-                          :error-messages="checkboxErrors"
-                          label="同意する"
-                          required
-                          @change="$v.checkbox.$touch()"
-                          @blur="$v.checkbox.$touch()"
-                        ></v-checkbox>
-
+                        <v-btn x-large block>
+                        <v-container style="padding:0">
+                          <v-row justify="space-around">
+                          <v-col>個人情報のお取り扱いについて</v-col>
+                          <v-col>
+                              <v-checkbox
+                                v-model="checkbox"
+                                :error-messages="checkboxErrors"
+                                label="同意する"
+                                required
+                                @change="$v.checkbox.$touch()"
+                                @blur="$v.checkbox.$touch()"
+                              ></v-checkbox>
+                          </v-col>
+                          </v-row>
+                        </v-container>
+                        </v-btn>
                         <v-btn class="mr-4" @click="submit">submit</v-btn>
                         <v-btn @click="clear">clear</v-btn>
 
