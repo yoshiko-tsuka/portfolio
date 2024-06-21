@@ -127,8 +127,7 @@
             <v-container>
               <v-row justify="center">
                 <v-col cols="12" md="8">
-                    <v-card-title class="headline">お問い合わせ</v-card-title>
-                    <v-card-subtitle>※全て必須項目です。</v-card-subtitle>
+                    <v-card-title class="headline">Send me a message!</v-card-title>
                     <v-list-item>
                       <v-list-item-content>
                       <form>
@@ -136,7 +135,7 @@
                           v-model="name"
                           :error-messages="nameErrors"
                           :counter="10"
-                          label="お名前"
+                          label="Name"
                           outlined
                           required
                           @input="$v.name.$touch()"
@@ -151,14 +150,14 @@
                           @input="$v.email.$touch()"
                           @blur="$v.email.$touch()"
                         ></v-text-field>
-                        <v-list-item-title>お問い合わせ内容</v-list-item-title>
+                        <v-list-item-title>What interests you about me?</v-list-item-title>
                         <v-container style="padding:0">
                           <v-row justify="space-around">
                             <v-col style="padding:0 0 0 10px">
                               <v-checkbox
                                 v-model="checkbox"
                                 :error-messages="checkboxErrors"
-                                label="ホームページ作成"
+                                label="Carrer"
                                 required
                                 @change="$v.checkbox.$touch()"
                                 @blur="$v.checkbox.$touch()"
@@ -168,7 +167,7 @@
                               <v-checkbox
                                 v-model="checkbox"
                                 :error-messages="checkboxErrors"
-                                label="システム開発"
+                                label="Raising twins"
                                 required
                                 @change="$v.checkbox.$touch()"
                                 @blur="$v.checkbox.$touch()"
@@ -178,7 +177,7 @@
                               <v-checkbox
                                 v-model="checkbox"
                                 :error-messages="checkboxErrors"
-                                label="その他"
+                                label="Other"
                                 required
                                 @change="$v.checkbox.$touch()"
                                 @blur="$v.checkbox.$touch()"
@@ -187,31 +186,28 @@
                           </v-row>
                         </v-container>
                         <v-textarea
-                          label="詳細"
+                          label="Your Message"
                           auto-grow
                           outlined
                           rows="10"
                           row-height="15"
                         ></v-textarea>
                         <v-btn x-large block>
-                        <v-container style="padding:0">
-                          <v-row justify="space-around">
-                          <v-col>個人情報のお取り扱いについて</v-col>
-                          <v-col>
-                              <v-checkbox
-                                v-model="checkbox"
-                                :error-messages="checkboxErrors"
-                                label="同意する"
-                                required
-                                @change="$v.checkbox.$touch()"
-                                @blur="$v.checkbox.$touch()"
-                              ></v-checkbox>
-                          </v-col>
-                          </v-row>
-                        </v-container>
+                          <v-container style="padding:0">
+                            <v-col style="padding:0 0 0 5px">
+                                <v-checkbox
+                                  v-model="checkbox"
+                                  :error-messages="checkboxErrors"
+                                  label="I agree to the privacy policy"
+                                  required
+                                  @change="$v.checkbox.$touch()"
+                                  @blur="$v.checkbox.$touch()"
+                                ></v-checkbox>
+                            </v-col>
+                          </v-container>
                         </v-btn>
-                        <v-btn class="mr-4" @click="submit">submit</v-btn>
-                        <v-btn @click="clear">clear</v-btn>
+                        <v-btn class="mr-4 mt-4" @click="submit">submit</v-btn>
+                        <v-btn class="mt-4" @click="clear">clear</v-btn>
 
                       </form>
                     </v-list-item-content>
@@ -323,7 +319,7 @@ export default {
               },
               { 
                 id: 6,
-                link: 'https://www.linkedin.com/in/yoshiko-sumita-804419182/',
+                link: 'https://www.linkedin.com/in/yoshiko-tsuka-804419182/',
                 frame_color: '#0374B1',
                 icon_color: 'white',
                 icon: 'fab fa-linkedin-in',
@@ -333,9 +329,9 @@ export default {
             [
               { 
                 id: 7,
-                frame_color: 'white',
-                style: 'color: #FF8C00;',
-                src: 'musics/music.png',
+                frame_color: 'black',
+                icon_color: 'green',
+                icon: 'fab fa-spotify',
                 modal: {
                     data: 'music'
                 },
@@ -351,13 +347,8 @@ export default {
                 },
                 app_name: 'Mail'
               },
-              { 
-                id: 9,
-                link: 'https://twitter.com/S2hydrangeS2',
-                frame_color: 'white',
-                icon_color: 'orange',
-                icon: 'attach_money',
-                app_name: 'Price'
+              {
+                id: 9
               }
             ]
           ]
@@ -389,7 +380,7 @@ export default {
     this.setDate()
     this.sound = new Howl({
       src: [
-        'musics/pastelhouse.mp3'
+        'musics/パステルハウス.mp3'
       ],
       // 設定 (以下はデフォルト値です)
       preload: true,   // 事前ロード
@@ -399,9 +390,6 @@ export default {
     })
     setInterval(() => this.setDate(), 1000)
     setInterval(() => this.setProgress(), 1000)
-  },
-  mounted(){
-    this.apigClient = apigClientFactory.newClient()
   },
   computed: {
     week() {
@@ -422,19 +410,19 @@ export default {
         if (!this.$v.name.$dirty) return errors
         !this.$v.name.minLength && errors.push('２文字以上10文字以下で記入してください。')
         !this.$v.name.maxLength && errors.push('２文字以上10文字以下で記入してください。')
-        !this.$v.name.required && errors.push('お名前を記入してください。')
+        !this.$v.name.required && errors.push('required')
         return errors
     },
     checkboxErrors () {
       const errors = []
       if (!this.$v.checkbox.$dirty) return errors
-      !this.$v.checkbox.checked && errors.push('個人情報のお取り扱いへの同意をお願いします。')
+      !this.$v.checkbox.checked && errors.push('required')
       return errors
     },
     selectErrors () {
       const errors = []
       if (!this.$v.select.$dirty) return errors
-      !this.$v.select.required && errors.push('Item is required')
+      !this.$v.select.required && errors.push('required')
       return errors
     },
     emailErrors () {
@@ -457,26 +445,6 @@ export default {
       else{
         this.playStatus = 'mdi-pause'
         this.sound.play()
-        const self = this
-        const params = {}
-        const body = {
-          recipient: "44534453yoshiko@gmail.com",
-          content: {
-              name: "山田 太郎",
-              nameFurigana: "ヤマダ タロウ",
-              age: 25,
-              prefecture: "北海道",
-              phone: "123-4567-8900"
-          }
-        }
-        const additionalParams = {}
-        this.apigClient
-          .sendhtmlmailPost(params, body, additionalParams)
-          .then(function(result) {
-            console.log(result)
-          }).catch(function ( error ) {
-            console.log("NG")
-          })
       }
     },
     setProgress(){
